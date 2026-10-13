@@ -44,10 +44,11 @@
     h1 { font-size: 1.55rem; }
   }
   p.tagline { margin: 0 auto 24px; max-width: 30rem; color: #c4bfe6; line-height: 1.5; }
-  .soon {
+  a.play {
     display: inline-block; padding: 14px 28px; border-radius: 999px;
-    background: #35b866; color: #fff; font-weight: 600;
+    background: #35b866; color: #fff; font-weight: 600; text-decoration: none;
   }
+  a.play:hover, a.play:focus-visible { background: #46cf7a; }
   .gallery { position: relative; margin-top: 36px; }
   .shots {
     display: flex; gap: 12px; padding: 4px 4px 12px;
@@ -132,10 +133,12 @@
   <p class="tagline" data-lang="fr">Lance des centaines de balles, casse des blocs. Améliore, fusionne, descends.</p>
   <p class="tagline" data-lang="de">Hunderte Kugeln, endlose Blöcke. Verbessern, fusionieren, immer tiefer hinab.</p>
 
-  <span class="soon" data-lang="en">Coming soon to Google Play</span>
-  <span class="soon" data-lang="es">Próximamente en Google Play</span>
-  <span class="soon" data-lang="fr">Bientôt sur Google Play</span>
-  <span class="soon" data-lang="de">Bald bei Google Play</span>
+  <a class="play" id="play" href="https://play.google.com/store/apps/details?id=com.bounceabyss.game">
+    <span data-lang="en">Get it on Google Play</span>
+    <span data-lang="es">Disponible en Google Play</span>
+    <span data-lang="fr">Disponible sur Google Play</span>
+    <span data-lang="de">Jetzt bei Google Play</span>
+  </a>
 
   <div class="gallery">
     <div class="shots" id="shots">
@@ -226,6 +229,7 @@
   var shots = document.getElementById("shots");
   var zoom = document.getElementById("zoom");
   var hero = document.getElementById("hero");
+  var PLAY = "https://play.google.com/store/apps/details?id=com.bounceabyss.game&hl=";
   var langButtons = document.querySelectorAll("[data-set-lang]");
 
   function applyLang(lang) {
@@ -235,6 +239,8 @@
       b.setAttribute("aria-pressed", b.dataset.setLang === lang);
     });
     // El gráfico y las capturas llevan texto del juego: hay un juego de imágenes por idioma.
+    // La ficha de la tienda se abre en el mismo idioma que la página.
+    document.getElementById("play").href = PLAY + lang;
     var heroUrl = "hero_" + lang + ".jpg";
     if (hero.getAttribute("src") !== heroUrl) hero.src = heroUrl;
     hero.alt = NAME[lang];
