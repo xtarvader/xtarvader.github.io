@@ -145,7 +145,7 @@
     document.getElementById("shot2").src = "shots/" + lang + "/02.webp";
     document.getElementById("back").href = "../?lang=" + lang;
     document.getElementById("more").href = "../?lang=" + lang;
-    document.getElementById("privacy").href = "privacy.html#" + lang;
+    document.getElementById("privacy").href = "privacy.html?lang=" + lang;
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === lang); });
   }
   buttons.forEach(function (b) {

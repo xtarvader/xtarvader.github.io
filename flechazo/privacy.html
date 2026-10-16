@@ -1,30 +1,53 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flechazo — Privacy policy</title>
-<style>
-  :root { --bg: #E4ECF6; --card: #F8FBFF; --text: #18233A; --accent: #3F5DF5; --muted: #5A6680; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
-  nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-  nav a { padding: 6px 14px; border: 2px solid var(--accent); border-radius: 999px; color: var(--accent); text-decoration: none; font-weight: 700; }
-  section { background: var(--card); border-radius: 20px; padding: 20px 24px; margin-bottom: 24px; }
-  h1 { font-size: 1.6rem; margin: 0 0 4px; }
-  h2 { font-size: 1.1rem; margin: 20px 0 4px; }
-  .date { color: var(--muted); margin-top: 0; }
-  a { color: var(--accent); }
-</style>
+<meta name="theme-color" content="#F3ECDF">
+<link rel="icon" type="image/webp" href="icon.webp">
+<link rel="stylesheet" href="../css/game.css">
+<script>
+  var LANGS = ["en", "es", "fr", "de"];
+  var TITLES = {
+    en: "Flechazo — Privacy policy",
+    es: "Flechazo — Política de privacidad",
+    fr: "Flechazo — Politique de confidentialité",
+    de: "Flechazo — Datenschutzerklärung"
+  };
+  // ?lang=xx manda; si no, el idioma elegido antes; si no, el del navegador.
+  function pickLang() {
+    var q = new URLSearchParams(location.search).get("lang");
+    if (LANGS.indexOf(q) >= 0) return q;
+    try { var saved = localStorage.getItem("lang"); if (LANGS.indexOf(saved) >= 0) return saved; } catch (e) {}
+    var nav = (navigator.language || "").toLowerCase().slice(0, 2);
+    return LANGS.indexOf(nav) >= 0 ? nav : "en";
+  }
+  document.documentElement.lang = pickLang();
+  document.title = TITLES[document.documentElement.lang];
+</script>
 </head>
-<body>
-<main>
-<nav><a href="./">← Flechazo</a><a href="#es">ES</a><a href="#en">EN</a><a href="#fr">FR</a><a href="#de">DE</a></nav>
+<body class="blue">
+<!--
+  Política de privacidad de FLECHAZO (GDD §6), en los cuatro idiomas del juego. La fuente está
+  en el repositorio del juego (docs/privacy/privacy.html) y se publica copiándola aquí. Si cambia
+  lo que hace el juego, hay que cambiarla EN LOS CUATRO IDIOMAS y poner la fecha nueva.
+-->
+<div class="wrap">
+<header class="top">
+  <a class="back" id="back" href="./">← Flechazo</a>
+  <div class="langs">
+    <button type="button" data-set-lang="es" lang="es" title="Español">ES</button>
+    <button type="button" data-set-lang="en" lang="en" title="English">EN</button>
+    <button type="button" data-set-lang="fr" lang="fr" title="Français">FR</button>
+    <button type="button" data-set-lang="de" lang="de" title="Deutsch">DE</button>
+  </div>
+</header>
 
-<section id="es" lang="es">
+<main class="policy">
+<div data-lang="es" lang="es">
 <h1>Flechazo — Política de privacidad</h1>
-<p class="date">Última actualización: 16 de octubre de 2026</p>
+<p>Última actualización: 16 de octubre de 2026</p>
 <p>Flechazo es un juego de puzzle para Android publicado por L.M.F.P. («nosotros»). Esta página explica qué datos se tratan cuando juegas.</p>
 <h2>1. Lo que el juego guarda en tu dispositivo</h2>
 <p>Tu progreso (nivel, racha) y tus ajustes se guardan solo en tu dispositivo. No hay cuentas ni inicio de sesión, y no los enviamos a ningún servidor. Si desinstalas el juego o borras sus datos, el progreso se pierde.</p>
@@ -43,11 +66,11 @@
 <p>Los datos de la partida están en tu dispositivo: se borran al desinstalar el juego. Para ejercer tus derechos sobre los datos tratados por el proveedor de anuncios (acceso, rectificación, supresión, oposición), escríbenos a <a href="mailto:orbitaloverload.game@gmail.com">orbitaloverload.game@gmail.com</a> o usa los medios que ofrece Google en su política. Si resides en la UE también puedes reclamar ante tu autoridad de protección de datos.</p>
 <h2>7. Cambios</h2>
 <p>Si esta política cambia, publicaremos aquí la nueva versión con su fecha.</p>
-</section>
+</div>
 
-<section id="en" lang="en">
+<div data-lang="en" lang="en">
 <h1>Flechazo — Privacy policy</h1>
-<p class="date">Last updated: 16 October 2026</p>
+<p>Last updated: 16 October 2026</p>
 <p>Flechazo is a puzzle game for Android published by L.M.F.P. ("we"). This page explains what data is processed when you play.</p>
 <h2>1. What the game stores on your device</h2>
 <p>Your progress (level, streak) and your settings are stored only on your device. There are no accounts or sign-in, and we do not send them to any server. If you uninstall the game or clear its data, your progress is lost.</p>
@@ -66,11 +89,11 @@
 <p>Your game data is on your device: it is deleted when you uninstall the game. To exercise your rights over the data processed by the ad provider (access, rectification, erasure, objection), write to <a href="mailto:orbitaloverload.game@gmail.com">orbitaloverload.game@gmail.com</a> or use the means Google offers in its policy. If you live in the EU you can also lodge a complaint with your data protection authority.</p>
 <h2>7. Changes</h2>
 <p>If this policy changes, we will publish the new version here with its date.</p>
-</section>
+</div>
 
-<section id="fr" lang="fr">
+<div data-lang="fr" lang="fr">
 <h1>Flechazo — Politique de confidentialité</h1>
-<p class="date">Dernière mise à jour&nbsp;: 16 octobre 2026</p>
+<p>Dernière mise à jour&nbsp;: 16 octobre 2026</p>
 <p>Flechazo est un jeu de puzzle pour Android publié par L.M.F.P. («&nbsp;nous&nbsp;»). Cette page explique quelles données sont traitées lorsque tu joues.</p>
 <h2>1. Ce que le jeu enregistre sur ton appareil</h2>
 <p>Ta progression (niveau, série) et tes réglages sont enregistrés uniquement sur ton appareil. Il n'y a ni compte ni connexion, et nous ne les envoyons à aucun serveur. Si tu désinstalles le jeu ou effaces ses données, ta progression est perdue.</p>
@@ -89,11 +112,11 @@
 <p>Les données de jeu se trouvent sur ton appareil&nbsp;: elles sont supprimées lorsque tu désinstalles le jeu. Pour exercer tes droits sur les données traitées par le fournisseur de publicités (accès, rectification, effacement, opposition), écris-nous à <a href="mailto:orbitaloverload.game@gmail.com">orbitaloverload.game@gmail.com</a> ou utilise les moyens proposés par Google dans sa politique. Si tu résides dans l'UE, tu peux aussi introduire une réclamation auprès de ton autorité de protection des données.</p>
 <h2>7. Modifications</h2>
 <p>Si cette politique change, nous publierons ici la nouvelle version avec sa date.</p>
-</section>
+</div>
 
-<section id="de" lang="de">
+<div data-lang="de" lang="de">
 <h1>Flechazo — Datenschutzerklärung</h1>
-<p class="date">Zuletzt aktualisiert: 16. Oktober 2026</p>
+<p>Zuletzt aktualisiert: 16. Oktober 2026</p>
 <p>Flechazo ist ein Puzzlespiel für Android, veröffentlicht von L.M.F.P. („wir“). Diese Seite erklärt, welche Daten beim Spielen verarbeitet werden.</p>
 <h2>1. Was das Spiel auf deinem Gerät speichert</h2>
 <p>Dein Fortschritt (Level, Serie) und deine Einstellungen werden nur auf deinem Gerät gespeichert. Es gibt keine Konten und keine Anmeldung, und wir senden sie an keinen Server. Wenn du das Spiel deinstallierst oder seine Daten löschst, geht dein Fortschritt verloren.</p>
@@ -112,7 +135,30 @@
 <p>Deine Spieldaten befinden sich auf deinem Gerät: Sie werden beim Deinstallieren des Spiels gelöscht. Um deine Rechte bezüglich der vom Werbeanbieter verarbeiteten Daten auszuüben (Auskunft, Berichtigung, Löschung, Widerspruch), schreib uns an <a href="mailto:orbitaloverload.game@gmail.com">orbitaloverload.game@gmail.com</a> oder nutze die Möglichkeiten, die Google in seiner Richtlinie anbietet. Wenn du in der EU lebst, kannst du dich auch bei deiner Datenschutzbehörde beschweren.</p>
 <h2>7. Änderungen</h2>
 <p>Wenn sich diese Richtlinie ändert, veröffentlichen wir hier die neue Version mit Datum.</p>
-</section>
+</div>
 </main>
+<footer>&copy; 2026 L.M.F.P.</footer>
+</div>
+
+<script>
+(function () {
+  var langButtons = document.querySelectorAll("[data-set-lang]");
+  function applyLang(lang) {
+    document.documentElement.lang = lang;
+    document.title = TITLES[lang];
+    langButtons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === lang); });
+    document.getElementById("back").href = "./?lang=" + lang;
+  }
+  langButtons.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var lang = b.dataset.setLang;
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+      history.replaceState(null, "", "?lang=" + lang);
+      applyLang(lang);
+    });
+  });
+  applyLang(document.documentElement.lang);
+})();
+</script>
 </body>
 </html>

@@ -4,27 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bounce Abyss — Privacy policy</title>
+<meta name="theme-color" content="#F3ECDF">
 <link rel="icon" type="image/png" href="icon.png">
-<style>
-  :root { color-scheme: dark; }
-  * { box-sizing: border-box; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 46rem; margin: 0 auto; padding: 1.25rem 1rem 4rem; color: #e9e7f7; background: #0f0d1c; }
-  h1 { font-size: 1.6rem; } h2 { font-size: 1.15rem; margin-top: 2rem; color: #ffd65a; }
-  a { color: #b9a6ff; }
-  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .top p { margin: 0; font-size: .9rem; }
-  .langs { display: flex; gap: 6px; }
-  .langs button {
-    min-width: 44px; padding: 8px 12px; border-radius: 999px; cursor: pointer;
-    font: inherit; font-size: .8rem; font-weight: 600; letter-spacing: .04em;
-    color: #b9b3dc; background: transparent; border: 1px solid #ffffff2e;
-  }
-  .langs button:hover, .langs button:focus-visible { color: #fff; border-color: #b9a6ff; }
-  .langs button[aria-pressed="true"] { color: #fff; background: #7c5cff; border-color: #7c5cff; }
-  [data-lang] { display: none; }
-  html[lang="en"] [data-lang="en"], html[lang="es"] [data-lang="es"],
-  html[lang="fr"] [data-lang="fr"], html[lang="de"] [data-lang="de"] { display: revert; }
-</style>
+<link rel="stylesheet" href="../css/game.css">
 <script>
   var LANGS = ["en", "es", "fr", "de"];
   var TITLES = {
@@ -37,10 +19,7 @@
   function pickLang() {
     var q = new URLSearchParams(location.search).get("lang");
     if (LANGS.indexOf(q) >= 0) return q;
-    try {
-      var saved = localStorage.getItem("lang");
-      if (LANGS.indexOf(saved) >= 0) return saved;
-    } catch (e) {}
+    try { var saved = localStorage.getItem("lang"); if (LANGS.indexOf(saved) >= 0) return saved; } catch (e) {}
     var nav = (navigator.language || "").toLowerCase().slice(0, 2);
     return LANGS.indexOf(nav) >= 0 ? nav : "en";
   }
@@ -48,7 +27,7 @@
   document.title = TITLES[document.documentElement.lang];
 </script>
 </head>
-<body>
+<body class="red">
 <!--
   Política de privacidad publicada de ABISMO (LANZAMIENTO §2 y §4), en los cuatro idiomas del
   juego. Si cambia lo que hace el juego (por ejemplo, si se activa un proveedor de analítica),
@@ -58,16 +37,18 @@
   alemán y al francés): no es asesoramiento legal. Si hay diferencias entre versiones, manda
   la española.
 -->
-<div class="top">
-  <p><a id="back" href="./">← <span data-lang="en">Bounce Abyss</span><span data-lang="es">Abismo</span><span data-lang="fr">Bounce Abyss</span><span data-lang="de">Bounce Abyss</span></a></p>
+<div class="wrap">
+<header class="top">
+  <a class="back" id="back" href="./">← <span data-lang="en">Bounce Abyss</span><span data-lang="es">Abismo</span><span data-lang="fr">Bounce Abyss</span><span data-lang="de">Bounce Abyss</span></a>
   <div class="langs">
     <button type="button" data-set-lang="es" lang="es" title="Español">ES</button>
     <button type="button" data-set-lang="en" lang="en" title="English">EN</button>
     <button type="button" data-set-lang="fr" lang="fr" title="Français">FR</button>
     <button type="button" data-set-lang="de" lang="de" title="Deutsch">DE</button>
   </div>
-</div>
+</header>
 
+<main class="policy">
 <div data-lang="es" lang="es">
 <h1>Abismo — Política de privacidad</h1>
 <p>Última actualización: 13 de octubre de 2026</p>
@@ -187,20 +168,19 @@
 <h2>7. Änderungen</h2>
 <p>Wenn sich diese Erklärung ändert, veröffentlichen wir hier die neue Fassung mit ihrem Datum.</p>
 </div>
+</main>
+<footer>&copy; 2026 L.M.F.P.</footer>
+</div>
 
 <script>
 (function () {
   var langButtons = document.querySelectorAll("[data-set-lang]");
-
   function applyLang(lang) {
     document.documentElement.lang = lang;
     document.title = TITLES[lang];
-    langButtons.forEach(function (b) {
-      b.setAttribute("aria-pressed", b.dataset.setLang === lang);
-    });
+    langButtons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === lang); });
     document.getElementById("back").href = "./?lang=" + lang;
   }
-
   langButtons.forEach(function (b) {
     b.addEventListener("click", function () {
       var lang = b.dataset.setLang;
@@ -209,7 +189,6 @@
       applyLang(lang);
     });
   });
-
   applyLang(document.documentElement.lang);
 })();
 </script>
