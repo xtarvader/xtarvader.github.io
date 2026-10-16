@@ -4,264 +4,495 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>L.M.F.P. games</title>
-<meta name="description" content="Free mobile games by L.M.F.P.: Orbital Overload and Bounce Abyss.">
+<meta name="description" content="Small Android games with long-lasting fun: Orbital Overload, Bounce Abyss and Flechazo. No accounts, offline play, four languages.">
+<meta property="og:title" content="L.M.F.P. games">
+<meta property="og:description" content="Small Android games with long-lasting fun: Orbital Overload, Bounce Abyss and Flechazo.">
+<meta property="og:image" content="https://xtarvader.github.io/flechazo/hero.webp">
+<meta name="theme-color" content="#F3ECDF">
 <link rel="icon" type="image/png" href="orbitaloverload/icon.png">
+<link rel="preload" href="fonts/lilita-one.ttf" as="font" type="font/ttf" crossorigin>
 <style>
-  :root { color-scheme: dark; }
+  @font-face { font-family: "Lilita One"; src: url("fonts/lilita-one.ttf") format("truetype"); font-display: swap; }
+  @font-face { font-family: "Nunito"; src: url("fonts/nunito.ttf") format("truetype"); font-weight: 200 1000; font-display: swap; }
+
+  :root {
+    --paper: #F3ECDF; --band: #E9DDC7; --card: #FFFAF1; --ink: #1D1B19; --ink-soft: #5E554B;
+    --line: #D9CBB3; --red: #E0472F; --red-edge: #B0331E; --teal: #127A73; --teal-edge: #0B5652;
+    --mustard: #E9A92E; --mustard-edge: #B9801A; --blue: #3F5DF5; --blue-edge: #2C45C4;
+    --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+    --body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1B1815; --band: #231F1B; --card: #2A251F; --ink: #F3ECDF; --ink-soft: #BDB1A2;
+      --line: #3D352C; color-scheme: dark;
+    }
+  }
   * { box-sizing: border-box; }
-  html, body { margin: 0; }
-  body {
-    min-height: 100vh; padding: 20px 16px 56px;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: #e8ecf8;
-    background:
-      radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 78% 32%, #cfe0ff 50%, transparent 51%),
-      radial-gradient(1px 1px at 34% 71%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 61% 86%, #ffe9c2 50%, transparent 51%),
-      radial-gradient(1px 1px at 90% 64%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 22% 44%, #cfe0ff 50%, transparent 51%),
-      radial-gradient(1px 1px at 47% 9%, #d9ccff 50%, transparent 51%),
-      radial-gradient(ellipse 70% 50% at 15% 0%, #2a3f9a55 0%, transparent 70%),
-      radial-gradient(ellipse 70% 50% at 90% 10%, #6a3fd055 0%, transparent 70%),
-      radial-gradient(ellipse at 50% 120%, #1b2a5c 0%, #0a0e1f 60%, #05070f 100%);
-    background-attachment: fixed;
-  }
-  main { width: 100%; max-width: 980px; margin: 0 auto; }
-  .langs { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 28px; }
-  .langs button {
-    min-width: 44px; padding: 8px 12px; border-radius: 999px; cursor: pointer;
-    font: inherit; font-size: .8rem; font-weight: 600; letter-spacing: .04em;
-    color: #aab4d4; background: transparent; border: 1px solid #ffffff2e;
-  }
-  .langs button:hover, .langs button:focus-visible { color: #fff; border-color: #9fb6ff; }
-  .langs button[aria-pressed="true"] { color: #fff; background: #5b6cff; border-color: #5b6cff; }
-  header { text-align: center; margin-bottom: 44px; }
-  header h1 {
-    margin: 0 0 12px; font-size: clamp(2.2rem, 7vw, 3.6rem); line-height: 1.05; letter-spacing: -.01em;
-    background: linear-gradient(100deg, #7fd4ff 0%, #9fb6ff 35%, #c7a6ff 65%, #ffd65a 100%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  header p { margin: 0 auto; max-width: 34rem; color: #aab4d4; font-size: 1.05rem; line-height: 1.5; }
-  .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
-  a.game {
-    --accent: #3d7bff;
-    position: relative; display: flex; flex-direction: column; overflow: hidden;
-    border-radius: 26px; text-decoration: none; color: inherit;
-    background: #0d1228; border: 1px solid #ffffff1f;
-    box-shadow: 0 18px 50px #00000066;
-    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
-  }
-  a.game.abyss { --accent: #8a6bff; }
-  a.game:hover, a.game:focus-visible {
-    transform: translateY(-6px); border-color: var(--accent);
-    box-shadow: 0 24px 70px color-mix(in srgb, var(--accent) 45%, transparent);
-  }
-  .cover { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #05070f; }
-  .cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
-  a.game:hover .cover img { transform: scale(1.05); }
-  .cover::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 45%, #0d1228 100%);
-  }
-  .body { position: relative; padding: 0 24px 26px; }
-  img.icon {
-    width: 92px; height: 92px; border-radius: 22px; margin-top: -46px; position: relative;
-    box-shadow: 0 0 0 3px #0d1228, 0 10px 30px color-mix(in srgb, var(--accent) 55%, transparent);
-  }
-  img.icon.pixel { image-rendering: pixelated; }
-  .body h2 { margin: 14px 0 6px; font-size: 1.45rem; }
-  .body p { margin: 0 0 16px; color: #aab4d4; line-height: 1.5; }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-  .chips span {
-    padding: 5px 12px; border-radius: 999px; font-size: .78rem; font-weight: 600;
-    color: color-mix(in srgb, var(--accent) 55%, #fff); background: color-mix(in srgb, var(--accent) 18%, transparent);
-    border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  }
-  .more {
-    display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px;
-    background: var(--accent); color: #fff; font-weight: 600;
-  }
-  .more i { font-style: normal; transition: transform .2s ease; }
-  a.game:hover .more i { transform: translateX(4px); }
-  .badge {
-    position: absolute; top: 14px; right: 14px; z-index: 1; padding: 6px 12px; border-radius: 999px;
-    font-size: .74rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
-    color: #0a0e1f; background: #ffd65a;
-  }
-  .badge.live { background: #5fe08a; }
-  .values { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 44px; }
-  .values div { padding: 18px 20px; border-radius: 18px; background: #ffffff0a; border: 1px solid #ffffff14; }
-  .values strong { display: block; margin-bottom: 4px; color: #e8ecf8; }
-  .values span { color: #aab4d4; font-size: .92rem; line-height: 1.45; }
-  footer { margin-top: 48px; text-align: center; font-size: .8rem; color: #6b7699; }
-  footer a { color: #9fb6ff; text-decoration: none; }
-  footer a:hover, footer a:focus-visible { text-decoration: underline; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--body); }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+  /* Cabecera */
+  .top { display: flex; align-items: center; gap: 16px; padding-block: 18px; flex-wrap: wrap; }
+  .brand { font: 1.6rem/1 var(--display); text-decoration: none; letter-spacing: .02em; display: flex; align-items: center; gap: 10px; }
+  .brand i { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; background: var(--red);
+    box-shadow: inset 0 -4px 0 var(--red-edge); color: #fff; font-style: normal; font-size: 1.1rem; }
+  .menu { display: flex; gap: 18px; margin-left: auto; font-weight: 800; font-size: .95rem; flex-wrap: wrap; }
+  .menu a { text-decoration: none; opacity: .8; }
+  .menu a:hover, .menu a:focus-visible { opacity: 1; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; text-decoration-color: var(--mustard); }
+  .langs { display: flex; gap: 4px; }
+  .langs button { font: 800 .8rem var(--body); letter-spacing: .04em; padding: 7px 10px; border-radius: 10px; cursor: pointer;
+    color: var(--ink); background: transparent; border: 2px solid var(--line); }
+  .langs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  @media (max-width: 719px) { .menu { order: 3; width: 100%; margin: 0; gap: 14px; } }
+
+  /* Portada */
+  .hero { display: grid; gap: 28px; align-items: center; padding-block: 28px 40px; }
+  @media (min-width: 900px) { .hero { grid-template-columns: 1.05fr 1fr; padding-block: 48px 64px; } }
+  .kicker { display: inline-block; font-weight: 900; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--teal); background: color-mix(in srgb, var(--teal) 12%, transparent); padding: 6px 12px; border-radius: 8px; }
+  h1 { font: clamp(2.5rem, 6.4vw, 4.4rem)/1.02 var(--display); margin: 18px 0 18px; letter-spacing: .005em; }
+  h1 mark { background: linear-gradient(transparent 62%, var(--mustard) 62%, var(--mustard) 92%, transparent 92%); color: inherit; padding: 0 .06em; }
+  .lead { font-size: 1.12rem; color: var(--ink-soft); max-width: 34rem; margin: 0 0 26px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px 15px; border-radius: 14px; font-weight: 900;
+    text-decoration: none; color: #fff; background: var(--red); box-shadow: inset 0 -5px 0 var(--red-edge);
+    transition: transform .12s ease, box-shadow .12s ease; }
+  .btn:hover, .btn:focus-visible { transform: translateY(-2px); }
+  .btn:active { transform: translateY(2px); box-shadow: inset 0 -2px 0 var(--red-edge); }
+  .btn.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+  .btn.teal { background: var(--teal); box-shadow: inset 0 -5px 0 var(--teal-edge); }
+  .btn.small { padding: 9px 16px 11px; border-radius: 12px; font-size: .92rem; }
+  .art { position: relative; }
+  .art::before { content: ""; position: absolute; inset: 10% 4% 2% 4%; border-radius: 48% 52% 44% 56% / 55% 45% 55% 45%;
+    background: var(--band); z-index: -1; }
+  .art img { width: 100%; height: auto; }
+
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; border-radius: 20px; overflow: hidden;
+    background: var(--line); border: 2px solid var(--line); margin-bottom: 72px; }
+  @media (min-width: 720px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stats div { background: var(--card); padding: 18px 20px; }
+  .stats b { display: block; font: 2.4rem/1 var(--display); color: var(--red); }
+  .stats div:nth-child(2) b { color: var(--teal); }
+  .stats div:nth-child(3) b { color: var(--mustard); }
+  .stats div:nth-child(4) b { color: var(--blue); }
+  .stats span { font-weight: 700; font-size: .95rem; color: var(--ink-soft); }
+
+  /* Secciones */
+  section { padding: 0 0 72px; }
+  h2 { font: clamp(1.9rem, 4vw, 2.6rem)/1.1 var(--display); margin: 0 0 10px; }
+  .intro { color: var(--ink-soft); max-width: 40rem; margin: 0 0 28px; }
+
+  /* Juegos */
+  .games { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
+  .game { --c: var(--red); --e: var(--red-edge); position: relative; display: flex; flex-direction: column; border-radius: 22px;
+    background: var(--card); border: 2px solid var(--line); box-shadow: 0 8px 0 var(--line); overflow: hidden; }
+  .game.teal { --c: var(--teal); --e: var(--teal-edge); }
+  .game.blue { --c: var(--blue); --e: var(--blue-edge); }
+  .cover { aspect-ratio: 16 / 9; overflow: hidden; background: var(--band); }
+  .cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+  .game:hover .cover img { transform: scale(1.04); }
+  .gbody { padding: 0 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .gicon { width: 84px; height: 84px; border-radius: 20px; margin-top: -42px; position: relative; border: 4px solid var(--card);
+    box-shadow: 0 6px 0 color-mix(in srgb, var(--ink) 18%, transparent); background: var(--card); }
+  .gicon.pixel { image-rendering: pixelated; }
+  .badge { position: absolute; top: 14px; left: 14px; font-weight: 900; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase;
+    padding: 6px 11px; border-radius: 9px; background: var(--card); color: var(--teal); box-shadow: 0 3px 0 color-mix(in srgb, var(--ink) 25%, transparent); }
+  .badge.dev { color: var(--red); }
+  .game h3 { font: 1.6rem/1.1 var(--display); margin: 14px 0 6px; }
+  .game p { margin: 0 0 14px; color: var(--ink-soft); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .chips span { font-weight: 800; font-size: .78rem; padding: 4px 10px; border-radius: 8px;
+    color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); }
+  .gactions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; }
+  .gactions .btn { background: var(--c); box-shadow: inset 0 -5px 0 var(--e); }
+  .gactions .btn.ghost { background: transparent; box-shadow: inset 0 0 0 2px var(--line); color: var(--ink); }
+  .note { font-weight: 800; font-size: .9rem; color: var(--red); margin-bottom: 14px; }
+
+  /* Cómo trabajamos */
+  .band { background: var(--band); padding: 64px 0 56px; margin-bottom: 72px; }
+  .band section { padding: 0; }
+  .how { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .how div { background: var(--card); border-radius: 18px; padding: 20px 22px; border: 2px solid var(--line); }
+  .how b { display: block; font: 2.2rem/1 var(--display); margin-bottom: 8px; }
+  .how div:nth-child(1) b { color: var(--red); }
+  .how div:nth-child(2) b { color: var(--teal); }
+  .how div:nth-child(3) b { color: var(--mustard); }
+  .how div:nth-child(4) b { color: var(--blue); }
+  .how h3 { margin: 0 0 6px; font-size: 1.12rem; font-weight: 900; }
+  .how p { margin: 0; color: var(--ink-soft); font-size: .97rem; }
+
+  /* Diario */
+  .log { list-style: none; margin: 0; padding: 0; border-left: 4px solid var(--line); }
+  .log li { position: relative; padding: 0 0 22px 24px; }
+  .log li::before { content: ""; position: absolute; left: -12px; top: 4px; width: 20px; height: 20px; border-radius: 6px;
+    background: var(--mustard); box-shadow: inset 0 -3px 0 var(--mustard-edge); }
+  .log li:first-child::before { background: var(--red); box-shadow: inset 0 -3px 0 var(--red-edge); }
+  .log time { display: block; font-weight: 900; font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); }
+  .log p { margin: 2px 0 0; max-width: 46rem; }
+
+  /* Privacidad y contacto */
+  .contact { display: grid; gap: 22px; }
+  @media (min-width: 820px) { .contact { grid-template-columns: 1.1fr 1fr; align-items: start; } }
+  .links { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .links a { display: flex; justify-content: space-between; gap: 12px; padding: 14px 18px; border-radius: 14px; background: var(--card);
+    border: 2px solid var(--line); text-decoration: none; font-weight: 800; }
+  .links a:hover, .links a:focus-visible { border-color: var(--ink); }
+  .links a span:last-child { color: var(--ink-soft); }
+  footer { border-top: 2px solid var(--line); padding: 22px 0 40px; color: var(--ink-soft); font-size: .9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: space-between; }
+
   @media (prefers-reduced-motion: reduce) {
-    a.game, .cover img, .more i { transition: none; }
-    a.game:hover { transform: none; }
-    a.game:hover .cover img { transform: none; }
+    html { scroll-behavior: auto; }
+    .btn, .cover img { transition: none; }
+    .game:hover .cover img { transform: none; }
   }
-  [data-lang] { display: none; }
-  html[lang="en"] [data-lang="en"], html[lang="es"] [data-lang="es"],
-  html[lang="fr"] [data-lang="fr"], html[lang="de"] [data-lang="de"] { display: revert; }
 </style>
 <script>
   var LANGS = ["en", "es", "fr", "de"];
-  var TITLES = {
-    en: "L.M.F.P. games",
-    es: "Juegos de L.M.F.P.",
-    fr: "Les jeux de L.M.F.P.",
-    de: "Spiele von L.M.F.P."
-  };
   // ?lang=xx manda; si no, el idioma elegido antes; si no, el del navegador.
   function pickLang() {
     var q = new URLSearchParams(location.search).get("lang");
     if (LANGS.indexOf(q) >= 0) return q;
-    try {
-      var saved = localStorage.getItem("lang");
-      if (LANGS.indexOf(saved) >= 0) return saved;
-    } catch (e) {}
+    try { var saved = localStorage.getItem("lang"); if (LANGS.indexOf(saved) >= 0) return saved; } catch (e) {}
     var nav = (navigator.language || "").toLowerCase().slice(0, 2);
     return LANGS.indexOf(nav) >= 0 ? nav : "en";
   }
   document.documentElement.lang = pickLang();
-  document.title = TITLES[document.documentElement.lang];
 </script>
 </head>
 <body>
-<main>
+<header class="wrap top">
+  <a class="brand" href="./"><i>↗</i>L.M.F.P.</a>
+  <nav class="menu">
+    <a href="#games" data-i18n="nav_games">Games</a>
+    <a href="#how" data-i18n="nav_how">How we work</a>
+    <a href="#log" data-i18n="nav_log">Dev log</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </nav>
   <div class="langs">
     <button type="button" data-set-lang="es" lang="es" title="Español">ES</button>
     <button type="button" data-set-lang="en" lang="en" title="English">EN</button>
     <button type="button" data-set-lang="fr" lang="fr" title="Français">FR</button>
     <button type="button" data-set-lang="de" lang="de" title="Deutsch">DE</button>
   </div>
+</header>
 
-  <header>
-    <h1 data-lang="en">L.M.F.P. games</h1>
-    <h1 data-lang="es">Juegos de L.M.F.P.</h1>
-    <h1 data-lang="fr">Les jeux de L.M.F.P.</h1>
-    <h1 data-lang="de">Spiele von L.M.F.P.</h1>
-    <p data-lang="en">Free games for Android, made to be picked up for five minutes and kept for months.</p>
-    <p data-lang="es">Juegos gratuitos para Android, hechos para cogerlos cinco minutos y no soltarlos en meses.</p>
-    <p data-lang="fr">Des jeux gratuits pour Android, faits pour y jouer cinq minutes et y revenir pendant des mois.</p>
-    <p data-lang="de">Kostenlose Spiele für Android: fünf Minuten zwischendurch, Spaß für Monate.</p>
-  </header>
-
-  <div class="games">
-    <a class="game" id="game-orbital" href="orbitaloverload/">
-      <span class="badge live">
-        <span data-lang="en">Out now</span><span data-lang="es">Ya disponible</span><span data-lang="fr">Disponible</span><span data-lang="de">Erhältlich</span>
-      </span>
-      <div class="cover"><img id="cover-orbital" src="orbitaloverload/shots/en/01.webp" width="2132" height="1200" alt=""></div>
-      <div class="body">
-        <img class="icon pixel" src="orbitaloverload/icon.png" width="92" height="92" alt="">
-        <h2>Orbital Overload</h2>
-        <p data-lang="en">Turrets, endless upgrades and epic bosses: defend your pixel-art planet!</p>
-        <p data-lang="es">Torretas, mejoras sin fin y jefes épicos: ¡defiende tu planeta en pixel art!</p>
-        <p data-lang="fr">Tourelles, améliorations sans fin, boss épiques&nbsp;: défendez votre planète&nbsp;!</p>
-        <p data-lang="de">Geschütze, endlose Upgrades und epische Bosse: Verteidige deinen Planeten!</p>
-        <div class="chips" data-lang="en"><span>Idle defense</span><span>Pixel art</span><span>Offline</span></div>
-        <div class="chips" data-lang="es"><span>Defensa idle</span><span>Pixel art</span><span>Sin conexión</span></div>
-        <div class="chips" data-lang="fr"><span>Défense idle</span><span>Pixel art</span><span>Hors ligne</span></div>
-        <div class="chips" data-lang="de"><span>Idle-Abwehr</span><span>Pixel-Art</span><span>Offline</span></div>
-        <span class="more">
-          <span data-lang="en">See the game</span><span data-lang="es">Ver el juego</span><span data-lang="fr">Voir le jeu</span><span data-lang="de">Zum Spiel</span>
-          <i>→</i>
-        </span>
+<main>
+  <div class="wrap hero">
+    <div>
+      <span class="kicker" data-i18n="kicker">Independent Android games</span>
+      <h1 data-i18n-html="title">Small games, <mark>long-lasting fun</mark>.</h1>
+      <p class="lead" data-i18n="lead">We make Android games you understand in seconds and play in short breaks: on the bus, in a queue or before bed. No accounts, no sign-ups, no connection needed. Free, with ads designed to stay out of your way.</p>
+      <div class="actions">
+        <a class="btn" href="#games" data-i18n="cta_games">See the games</a>
+        <a class="btn ghost" href="mailto:orbitaloverload.game@gmail.com" data-i18n="cta_contact">Get in touch</a>
       </div>
-    </a>
-
-    <a class="game abyss" id="game-abyss" href="abismo/">
-      <span class="badge live">
-        <span data-lang="en">Out now</span><span data-lang="es">Ya disponible</span><span data-lang="fr">Disponible</span><span data-lang="de">Erhältlich</span>
-      </span>
-      <div class="cover"><img id="cover-abyss" src="abismo/hero_en.jpg" width="1024" height="500" alt=""></div>
-      <div class="body">
-        <img class="icon" src="abismo/icon.png" width="92" height="92" alt="">
-        <h2 data-lang="en">Bounce Abyss</h2>
-        <h2 data-lang="es">Abismo</h2>
-        <h2 data-lang="fr">Bounce Abyss</h2>
-        <h2 data-lang="de">Bounce Abyss</h2>
-        <p data-lang="en">Launch hundreds of balls, smash blocks and dive forever. Upgrade, fuse, descend.</p>
-        <p data-lang="es">Lanza cientos de bolas y rompe bloques sin fin. Mejora, fusiona y desciende.</p>
-        <p data-lang="fr">Lance des centaines de balles, casse des blocs. Améliore, fusionne, descends.</p>
-        <p data-lang="de">Hunderte Kugeln, endlose Blöcke. Verbessern, fusionieren, immer tiefer hinab.</p>
-        <div class="chips" data-lang="en"><span>Brick breaker</span><span>Roguelite</span><span>Incremental</span></div>
-        <div class="chips" data-lang="es"><span>Rompebloques</span><span>Roguelite</span><span>Incremental</span></div>
-        <div class="chips" data-lang="fr"><span>Casse-briques</span><span>Roguelite</span><span>Incrémental</span></div>
-        <div class="chips" data-lang="de"><span>Blockbrecher</span><span>Roguelite</span><span>Inkrementell</span></div>
-        <span class="more">
-          <span data-lang="en">See the game</span><span data-lang="es">Ver el juego</span><span data-lang="fr">Voir le jeu</span><span data-lang="de">Zum Spiel</span>
-          <i>→</i>
-        </span>
-      </div>
-    </a>
+    </div>
+    <div class="art"><img src="img/hero.webp" width="1400" height="676" alt=""></div>
   </div>
 
-  <div class="values">
-    <div>
-      <strong data-lang="en">Free to play</strong><strong data-lang="es">Gratis</strong><strong data-lang="fr">Gratuits</strong><strong data-lang="de">Kostenlos</strong>
-      <span data-lang="en">Ads are optional and always give something back.</span>
-      <span data-lang="es">Los anuncios son opcionales y siempre dan algo a cambio.</span>
-      <span data-lang="fr">Les publicités sont facultatives et donnent toujours quelque chose en retour.</span>
-      <span data-lang="de">Werbung ist freiwillig und bringt immer etwas zurück.</span>
+  <div class="wrap">
+    <div class="stats">
+      <div><b>2</b><span data-i18n="stat_live">games on Google Play</span></div>
+      <div><b>1</b><span data-i18n="stat_next">on the way: Flechazo</span></div>
+      <div><b>4</b><span data-i18n="stat_langs">languages in every game</span></div>
+      <div><b>0</b><span data-i18n="stat_accounts">accounts to create</span></div>
     </div>
-    <div>
-      <strong data-lang="en">Plays offline</strong><strong data-lang="es">Sin conexión</strong><strong data-lang="fr">Hors ligne</strong><strong data-lang="de">Offline spielbar</strong>
-      <span data-lang="en">On the train, on a plane or with no signal: no connection needed to play.</span>
-      <span data-lang="es">En el tren, en un avión o sin cobertura: no hace falta conexión para jugar.</span>
-      <span data-lang="fr">Dans le train, en avion ou sans réseau&nbsp;: pas besoin de connexion pour jouer.</span>
-      <span data-lang="de">Im Zug, im Flugzeug oder ohne Netz: Zum Spielen braucht es keine Verbindung.</span>
-    </div>
-    <div>
-      <strong data-lang="en">Independent</strong><strong data-lang="es">Independientes</strong><strong data-lang="fr">Indépendants</strong><strong data-lang="de">Unabhängig</strong>
-      <span data-lang="en">Feedback goes straight to the developer.</span>
-      <span data-lang="es">Tu opinión llega directamente al desarrollador.</span>
-      <span data-lang="fr">Votre avis arrive directement au développeur.</span>
-      <span data-lang="de">Dein Feedback geht direkt an den Entwickler.</span>
+
+    <section id="games">
+      <h2 data-i18n="games_title">Our games</h2>
+      <p class="intro" data-i18n="games_intro">Three very different games built on the same idea: play for five minutes or an hour and always want to come back.</p>
+      <div class="games">
+        <article class="game teal">
+          <span class="badge" data-i18n="badge_live">Out now</span>
+          <a class="cover" id="link-orbital" href="orbitaloverload/"><img id="cover-orbital" src="orbitaloverload/shots/en/01.webp" width="2132" height="1200" alt=""></a>
+          <div class="gbody">
+            <img class="gicon pixel" src="orbitaloverload/icon.png" width="84" height="84" alt="">
+            <h3>Orbital Overload</h3>
+            <p data-i18n="orbital_pitch">Turrets, endless upgrades and epic bosses: defend your pixel-art planet!</p>
+            <div class="chips" data-i18n-chips="orbital_chips"></div>
+            <div class="gactions">
+              <a class="btn small" id="more-orbital" href="orbitaloverload/" data-i18n="btn_see">See the game</a>
+              <a class="btn small ghost" href="https://play.google.com/store/apps/details?id=com.orbitaloverload.game">Google Play</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game">
+          <span class="badge" data-i18n="badge_live">Out now</span>
+          <a class="cover" id="link-abyss" href="abismo/"><img id="cover-abyss" src="abismo/hero_en.jpg" width="1024" height="500" alt=""></a>
+          <div class="gbody">
+            <img class="gicon" src="abismo/icon.png" width="84" height="84" alt="">
+            <h3 data-i18n="abyss_name">Bounce Abyss</h3>
+            <p data-i18n="abyss_pitch">Launch hundreds of balls, smash blocks and dive forever. Upgrade, fuse, descend.</p>
+            <div class="chips" data-i18n-chips="abyss_chips"></div>
+            <div class="gactions">
+              <a class="btn small" id="more-abyss" href="abismo/" data-i18n="btn_see">See the game</a>
+              <a class="btn small ghost" href="https://play.google.com/store/apps/details?id=com.bounceabyss.game">Google Play</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="game blue">
+          <span class="badge dev" data-i18n="badge_dev">In development</span>
+          <a class="cover" id="link-flechazo" href="flechazo/"><img src="flechazo/hero.webp" width="1600" height="800" alt=""></a>
+          <div class="gbody">
+            <img class="gicon" src="flechazo/icon.webp" width="84" height="84" alt="">
+            <h3>Flechazo</h3>
+            <p data-i18n="flechazo_pitch">Free the arrows in the right order and match them in threes by colour before the tray fills up.</p>
+            <div class="chips" data-i18n-chips="flechazo_chips"></div>
+            <p class="note" data-i18n="flechazo_note">Closed test on Google Play very soon.</p>
+            <div class="gactions">
+              <a class="btn small" id="more-flechazo" href="flechazo/" data-i18n="btn_see">See the game</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <div class="band" id="how">
+    <div class="wrap">
+      <section>
+        <h2 data-i18n="how_title">How we make our games</h2>
+        <p class="intro" data-i18n="how_intro">Four promises that every game keeps, from the first prototype to the last update.</p>
+        <div class="how">
+          <div><b>01</b><h3 data-i18n="how1_t">Ads that stay out of the way</h3><p data-i18n="how1_p"></p></div>
+          <div><b>02</b><h3 data-i18n="how2_t">Your save is yours</h3><p data-i18n="how2_p"></p></div>
+          <div><b>03</b><h3 data-i18n="how3_t">Made for short breaks</h3><p data-i18n="how3_p"></p></div>
+          <div><b>04</b><h3 data-i18n="how4_t">For everyone</h3><p data-i18n="how4_p"></p></div>
+        </div>
+      </section>
     </div>
   </div>
 
-  <footer>&copy; 2026 L.M.F.P. ·
-    <a href="mailto:orbitaloverload.game@gmail.com"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span><span data-lang="fr">Contact</span><span data-lang="de">Kontakt</span></a>
-  </footer>
+  <div class="wrap">
+    <section id="log">
+      <h2 data-i18n="log_title">Dev log</h2>
+      <p class="intro" data-i18n="log_intro">What we've been up to lately.</p>
+      <ol class="log">
+        <li><time datetime="2026-10-16"></time><p data-i18n="log1"></p></li>
+        <li><time datetime="2026-10-13"></time><p data-i18n="log2"></p></li>
+        <li><time datetime="2026-10-12"></time><p data-i18n="log3"></p></li>
+      </ol>
+    </section>
+
+    <section id="contact" class="contact">
+      <div>
+        <h2 data-i18n="contact_title">Privacy and contact</h2>
+        <p class="intro" data-i18n="contact_intro">Questions, bugs or ideas? Write to us: we read every message.</p>
+        <a class="btn teal" href="mailto:orbitaloverload.game@gmail.com">orbitaloverload.game@gmail.com</a>
+      </div>
+      <ul class="links">
+        <li><a href="https://sites.google.com/view/orbitaloverload"><span>Orbital Overload</span><span data-i18n="privacy">Privacy policy</span></a></li>
+        <li><a id="privacy-abyss" href="abismo/privacy.html"><span data-i18n="abyss_name">Bounce Abyss</span><span data-i18n="privacy">Privacy policy</span></a></li>
+        <li><a href="flechazo/privacy.html"><span>Flechazo</span><span data-i18n="privacy">Privacy policy</span></a></li>
+        <li><a href="app-ads.txt"><span>app-ads.txt</span><span>AdMob</span></a></li>
+      </ul>
+    </section>
+  </div>
 </main>
+
+<footer>
+  <div class="wrap"><span>&copy; 2026 L.M.F.P.</span><span data-i18n="footer">Independent games for Android</span></div>
+</footer>
 
 <script>
 (function () {
-  var langButtons = document.querySelectorAll("[data-set-lang]");
+  var T = {
+    es: {
+      title_doc: "Juegos de L.M.F.P.",
+      nav_games: "Juegos", nav_how: "Cómo trabajamos", nav_log: "Diario", nav_contact: "Contacto",
+      kicker: "Juegos independientes para Android",
+      title: "Juegos pequeños que <mark>dan para mucho</mark>.",
+      lead: "Hacemos juegos para Android que se entienden en segundos y se juegan en ratos cortos: en el bus, en una cola o antes de dormir. Sin cuentas, sin registros y sin conexión. Gratis, con anuncios pensados para no estorbar.",
+      cta_games: "Ver los juegos", cta_contact: "Escríbenos",
+      stat_live: "juegos en Google Play", stat_next: "en camino: Flechazo", stat_langs: "idiomas en cada juego", stat_accounts: "cuentas que crear",
+      games_title: "Nuestros juegos",
+      games_intro: "Tres juegos muy distintos con la misma idea: que puedas jugar cinco minutos o una hora y siempre te apetezca volver.",
+      badge_live: "Ya disponible", badge_dev: "En desarrollo", btn_see: "Ver el juego",
+      orbital_pitch: "Torretas, mejoras sin fin y jefes épicos: ¡defiende tu planeta en pixel art!",
+      orbital_chips: ["Defensa idle", "Pixel art", "Sin conexión"],
+      abyss_name: "Abismo",
+      abyss_pitch: "Lanza cientos de bolas y rompe bloques sin fin. Mejora, fusiona y desciende.",
+      abyss_chips: ["Rompebloques", "Roguelite", "Incremental"],
+      flechazo_pitch: "Saca las flechas en el orden correcto y júntalas de tres en tres por color antes de que se llene la bandeja.",
+      flechazo_chips: ["Puzzle", "Cientos de niveles", "Para daltónicos"],
+      flechazo_note: "Prueba cerrada en Google Play muy pronto.",
+      how_title: "Cómo hacemos los juegos",
+      how_intro: "Cuatro promesas que cumple cada juego, del primer prototipo a la última actualización.",
+      how1_t: "Anuncios que no estorban",
+      how1_p: "Los vídeos con recompensa son siempre opcionales y te dan algo a cambio. Si un juego tiene anuncios a pantalla completa, solo salen entre niveles, nunca en mitad de una partida.",
+      how2_t: "Tu partida es tuya",
+      how2_p: "Sin cuentas ni registros. El progreso se guarda en tu móvil y no lo enviamos a ningún servidor. Cada juego tiene su política de privacidad en cuatro idiomas.",
+      how3_t: "Pensados para ratos cortos",
+      how3_p: "Se entienden en segundos, se pueden dejar a medias y funcionan sin conexión: en el metro, en un avión o donde no haya cobertura.",
+      how4_t: "Para todo el mundo",
+      how4_p: "Español, inglés, francés y alemán desde el primer día, y opciones como los símbolos para daltónicos activadas por defecto.",
+      log_title: "Diario de desarrollo", log_intro: "En qué andamos últimamente.",
+      log1: "Flechazo ya tiene anuncios con consentimiento RGPD, pausa con ajustes y cuatro idiomas. Lo siguiente: la prueba cerrada en Google Play.",
+      log2: "Abismo ya está disponible en Google Play.",
+      log3: "Las páginas de Abismo y Orbital Overload, ahora en cuatro idiomas y con capturas nuevas.",
+      contact_title: "Privacidad y contacto",
+      contact_intro: "¿Dudas, errores o ideas? Escríbenos: leemos todos los mensajes.",
+      privacy: "Política de privacidad", footer: "Juegos independientes para Android"
+    },
+    en: {
+      title_doc: "L.M.F.P. games",
+      nav_games: "Games", nav_how: "How we work", nav_log: "Dev log", nav_contact: "Contact",
+      kicker: "Independent Android games",
+      title: "Small games, <mark>long-lasting fun</mark>.",
+      lead: "We make Android games you understand in seconds and play in short breaks: on the bus, in a queue or before bed. No accounts, no sign-ups, no connection needed. Free, with ads designed to stay out of your way.",
+      cta_games: "See the games", cta_contact: "Get in touch",
+      stat_live: "games on Google Play", stat_next: "on the way: Flechazo", stat_langs: "languages in every game", stat_accounts: "accounts to create",
+      games_title: "Our games",
+      games_intro: "Three very different games built on the same idea: play for five minutes or an hour and always want to come back.",
+      badge_live: "Out now", badge_dev: "In development", btn_see: "See the game",
+      orbital_pitch: "Turrets, endless upgrades and epic bosses: defend your pixel-art planet!",
+      orbital_chips: ["Idle defense", "Pixel art", "Offline"],
+      abyss_name: "Bounce Abyss",
+      abyss_pitch: "Launch hundreds of balls, smash blocks and dive forever. Upgrade, fuse, descend.",
+      abyss_chips: ["Brick breaker", "Roguelite", "Incremental"],
+      flechazo_pitch: "Free the arrows in the right order and match them in threes by colour before the tray fills up.",
+      flechazo_chips: ["Puzzle", "Hundreds of levels", "Colorblind-friendly"],
+      flechazo_note: "Closed test on Google Play very soon.",
+      how_title: "How we make our games",
+      how_intro: "Four promises every game keeps, from the first prototype to the last update.",
+      how1_t: "Ads that stay out of the way",
+      how1_p: "Rewarded videos are always optional and give you something back. If a game has full-screen ads, they only appear between levels, never in the middle of a game.",
+      how2_t: "Your save is yours",
+      how2_p: "No accounts or sign-ups. Your progress stays on your phone and we don't send it to any server. Every game has its own privacy policy in four languages.",
+      how3_t: "Made for short breaks",
+      how3_p: "You get them in seconds, you can stop at any point and they work offline: on the subway, on a plane or with no signal.",
+      how4_t: "For everyone",
+      how4_p: "Spanish, English, French and German from day one, plus options like colorblind symbols switched on by default.",
+      log_title: "Dev log", log_intro: "What we've been up to lately.",
+      log1: "Flechazo now has ads with GDPR consent, a pause menu with settings and four languages. Next up: the closed test on Google Play.",
+      log2: "Bounce Abyss is now available on Google Play.",
+      log3: "The Bounce Abyss and Orbital Overload pages, now in four languages with new screenshots.",
+      contact_title: "Privacy and contact",
+      contact_intro: "Questions, bugs or ideas? Write to us: we read every message.",
+      privacy: "Privacy policy", footer: "Independent games for Android"
+    },
+    fr: {
+      title_doc: "Les jeux de L.M.F.P.",
+      nav_games: "Jeux", nav_how: "Notre façon de faire", nav_log: "Journal", nav_contact: "Contact",
+      kicker: "Jeux Android indépendants",
+      title: "Des petits jeux qui <mark>durent longtemps</mark>.",
+      lead: "Nous faisons des jeux Android qu'on comprend en quelques secondes et qu'on joue par petites pauses : dans le bus, dans une file d'attente ou avant de dormir. Sans compte, sans inscription, sans connexion. Gratuits, avec des publicités pensées pour ne pas gêner.",
+      cta_games: "Voir les jeux", cta_contact: "Nous écrire",
+      stat_live: "jeux sur Google Play", stat_next: "en route : Flechazo", stat_langs: "langues dans chaque jeu", stat_accounts: "compte à créer",
+      games_title: "Nos jeux",
+      games_intro: "Trois jeux très différents avec la même idée : jouer cinq minutes ou une heure et toujours avoir envie d'y revenir.",
+      badge_live: "Disponible", badge_dev: "En développement", btn_see: "Voir le jeu",
+      orbital_pitch: "Tourelles, améliorations sans fin, boss épiques : défendez votre planète !",
+      orbital_chips: ["Défense idle", "Pixel art", "Hors ligne"],
+      abyss_name: "Bounce Abyss",
+      abyss_pitch: "Lance des centaines de balles, casse des blocs. Améliore, fusionne, descends.",
+      abyss_chips: ["Casse-briques", "Roguelite", "Incrémental"],
+      flechazo_pitch: "Libère les flèches dans le bon ordre et réunis-les par trois de la même couleur avant que le bac ne déborde.",
+      flechazo_chips: ["Puzzle", "Des centaines de niveaux", "Pour daltoniens"],
+      flechazo_note: "Test fermé sur Google Play très bientôt.",
+      how_title: "Comment nous faisons nos jeux",
+      how_intro: "Quatre promesses que chaque jeu tient, du premier prototype à la dernière mise à jour.",
+      how1_t: "Des pubs qui ne gênent pas",
+      how1_p: "Les vidéos avec récompense sont toujours facultatives et te rapportent quelque chose. Si un jeu a des publicités plein écran, elles n'apparaissent qu'entre deux niveaux, jamais en pleine partie.",
+      how2_t: "Ta partie t'appartient",
+      how2_p: "Ni compte ni inscription. Ta progression reste sur ton téléphone et nous ne l'envoyons à aucun serveur. Chaque jeu a sa politique de confidentialité en quatre langues.",
+      how3_t: "Pensés pour les petites pauses",
+      how3_p: "On les comprend en quelques secondes, on peut s'arrêter à tout moment et ils fonctionnent hors ligne : dans le métro, en avion ou sans réseau.",
+      how4_t: "Pour tout le monde",
+      how4_p: "Espagnol, anglais, français et allemand dès le premier jour, et des options comme les symboles pour daltoniens activées par défaut.",
+      log_title: "Journal de développement", log_intro: "Ce qui nous occupe ces derniers temps.",
+      log1: "Flechazo a maintenant ses publicités avec consentement RGPD, un menu pause avec réglages et quatre langues. Prochaine étape : le test fermé sur Google Play.",
+      log2: "Bounce Abyss est disponible sur Google Play.",
+      log3: "Les pages de Bounce Abyss et d'Orbital Overload, désormais en quatre langues avec de nouvelles captures.",
+      contact_title: "Confidentialité et contact",
+      contact_intro: "Des questions, des bugs ou des idées ? Écris-nous : nous lisons tous les messages.",
+      privacy: "Politique de confidentialité", footer: "Jeux indépendants pour Android"
+    },
+    de: {
+      title_doc: "Spiele von L.M.F.P.",
+      nav_games: "Spiele", nav_how: "So arbeiten wir", nav_log: "Tagebuch", nav_contact: "Kontakt",
+      kicker: "Unabhängige Android-Spiele",
+      title: "Kleine Spiele, <mark>großer Spielspaß</mark>.",
+      lead: "Wir machen Android-Spiele, die man in Sekunden versteht und in kurzen Pausen spielt: im Bus, in der Warteschlange oder vor dem Schlafen. Ohne Konto, ohne Anmeldung, ohne Internet. Kostenlos, mit Werbung, die nicht stört.",
+      cta_games: "Zu den Spielen", cta_contact: "Schreib uns",
+      stat_live: "Spiele bei Google Play", stat_next: "unterwegs: Flechazo", stat_langs: "Sprachen in jedem Spiel", stat_accounts: "Konten anzulegen",
+      games_title: "Unsere Spiele",
+      games_intro: "Drei sehr unterschiedliche Spiele mit derselben Idee: fünf Minuten oder eine Stunde spielen und immer wieder zurückkommen wollen.",
+      badge_live: "Erhältlich", badge_dev: "In Entwicklung", btn_see: "Zum Spiel",
+      orbital_pitch: "Geschütze, endlose Upgrades und epische Bosse: Verteidige deinen Planeten!",
+      orbital_chips: ["Idle-Abwehr", "Pixel-Art", "Offline"],
+      abyss_name: "Bounce Abyss",
+      abyss_pitch: "Hunderte Kugeln, endlose Blöcke. Verbessern, fusionieren, immer tiefer hinab.",
+      abyss_chips: ["Blockbrecher", "Roguelite", "Inkrementell"],
+      flechazo_pitch: "Befreie die Pfeile in der richtigen Reihenfolge und sammle sie zu dritt nach Farbe, bevor die Ablage voll ist.",
+      flechazo_chips: ["Puzzle", "Hunderte Level", "Farbenblind-freundlich"],
+      flechazo_note: "Geschlossener Test bei Google Play in Kürze.",
+      how_title: "Wie wir unsere Spiele machen",
+      how_intro: "Vier Versprechen, die jedes Spiel hält, vom ersten Prototyp bis zum letzten Update.",
+      how1_t: "Werbung, die nicht stört",
+      how1_p: "Belohnungsvideos sind immer freiwillig und bringen dir etwas. Wenn ein Spiel Vollbildwerbung hat, erscheint sie nur zwischen Levels, nie mitten im Spiel.",
+      how2_t: "Dein Spielstand gehört dir",
+      how2_p: "Keine Konten, keine Anmeldung. Dein Fortschritt bleibt auf deinem Handy und wir senden ihn an keinen Server. Jedes Spiel hat seine Datenschutzerklärung in vier Sprachen.",
+      how3_t: "Für kurze Pausen gemacht",
+      how3_p: "Man versteht sie in Sekunden, kann jederzeit aufhören und sie laufen offline: in der U-Bahn, im Flugzeug oder ohne Netz.",
+      how4_t: "Für alle",
+      how4_p: "Spanisch, Englisch, Französisch und Deutsch vom ersten Tag an, dazu Optionen wie Symbole für Farbenblinde, standardmäßig aktiv.",
+      log_title: "Entwicklungstagebuch", log_intro: "Woran wir zuletzt gearbeitet haben.",
+      log1: "Flechazo hat jetzt Werbung mit DSGVO-Einwilligung, ein Pausenmenü mit Einstellungen und vier Sprachen. Als Nächstes: der geschlossene Test bei Google Play.",
+      log2: "Bounce Abyss ist jetzt bei Google Play erhältlich.",
+      log3: "Die Seiten von Bounce Abyss und Orbital Overload jetzt in vier Sprachen und mit neuen Screenshots.",
+      contact_title: "Datenschutz und Kontakt",
+      contact_intro: "Fragen, Fehler oder Ideen? Schreib uns: Wir lesen jede Nachricht.",
+      privacy: "Datenschutzerklärung", footer: "Unabhängige Spiele für Android"
+    }
+  };
 
-  function applyLang(lang) {
+  var buttons = document.querySelectorAll("[data-set-lang]");
+
+  function apply(lang) {
+    var t = T[lang];
     document.documentElement.lang = lang;
-    document.title = TITLES[lang];
-    langButtons.forEach(function (b) {
-      b.setAttribute("aria-pressed", b.dataset.setLang === lang);
+    document.title = t.title_doc;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t[el.dataset.i18n]; });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) { el.innerHTML = t[el.dataset.i18nHtml]; });
+    document.querySelectorAll("[data-i18n-chips]").forEach(function (el) {
+      el.textContent = "";
+      t[el.dataset.i18nChips].forEach(function (c) { var s = document.createElement("span"); s.textContent = c; el.appendChild(s); });
     });
+    var fmt = new Intl.DateTimeFormat(lang, { day: "numeric", month: "long", year: "numeric" });
+    document.querySelectorAll("time[datetime]").forEach(function (el) {
+      el.textContent = fmt.format(new Date(el.getAttribute("datetime") + "T12:00:00"));
+    });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === lang); });
     // Las portadas llevan texto del juego: hay una por idioma. Y el idioma viaja a cada página.
-    var covers = {
-      "cover-orbital": "orbitaloverload/shots/" + lang + "/01.webp",
-      "cover-abyss": "abismo/hero_" + lang + ".jpg"
-    };
-    Object.keys(covers).forEach(function (id) {
-      var img = document.getElementById(id);
-      if (img.getAttribute("src") !== covers[id]) img.src = covers[id];
+    document.getElementById("cover-orbital").src = "orbitaloverload/shots/" + lang + "/01.webp";
+    document.getElementById("cover-abyss").src = "abismo/hero_" + lang + ".jpg";
+    [["orbital", "orbitaloverload/"], ["abyss", "abismo/"], ["flechazo", "flechazo/"]].forEach(function (g) {
+      var href = g[1] + "?lang=" + lang;
+      document.getElementById("link-" + g[0]).href = href;
+      document.getElementById("more-" + g[0]).href = href;
     });
-    document.getElementById("game-orbital").href = "orbitaloverload/?lang=" + lang;
-    document.getElementById("game-abyss").href = "abismo/?lang=" + lang;
   }
 
-  langButtons.forEach(function (b) {
+  buttons.forEach(function (b) {
     b.addEventListener("click", function () {
       var lang = b.dataset.setLang;
       try { localStorage.setItem("lang", lang); } catch (e) {}
-      history.replaceState(null, "", "?lang=" + lang);
-      applyLang(lang);
+      history.replaceState(null, "", "?lang=" + lang + location.hash);
+      apply(lang);
     });
   });
 
-  applyLang(document.documentElement.lang);
+  apply(document.documentElement.lang);
 })();
 </script>
 </body>
