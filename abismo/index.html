@@ -5,89 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bounce Abyss: Ball Breaker</title>
 <meta name="description" content="Launch hundreds of balls, smash blocks and dive forever. Upgrade, fuse, descend.">
+<meta property="og:title" content="Bounce Abyss: Ball Breaker">
+<meta property="og:image" content="https://xtarvader.github.io/abismo/hero_en.jpg">
+<meta name="theme-color" content="#F3ECDF">
 <link rel="icon" type="image/png" href="icon.png">
-<style>
-  :root { color-scheme: dark; }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; }
-  body {
-    min-height: 100vh; padding: 20px 16px 48px;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: #f2f3ff;
-    background:
-      radial-gradient(1px 1px at 14% 22%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 81% 12%, #d9ccff 50%, transparent 51%),
-      radial-gradient(1px 1px at 37% 64%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 66% 83%, #ffe9c2 50%, transparent 51%),
-      radial-gradient(1px 1px at 92% 58%, #fff 50%, transparent 51%),
-      radial-gradient(ellipse at 50% 110%, #3a1f7a 0%, #150f2e 55%, #0b0b14 100%);
-    background-attachment: fixed;
-  }
-  main { width: 100%; max-width: 860px; margin: 0 auto; text-align: center; }
-  .langs { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 16px; }
-  .langs button {
-    min-width: 44px; padding: 8px 12px; border-radius: 999px; cursor: pointer;
-    font: inherit; font-size: .8rem; font-weight: 600; letter-spacing: .04em;
-    color: #b9b3dc; background: transparent; border: 1px solid #ffffff2e;
-  }
-  .langs button:hover, .langs button:focus-visible { color: #fff; border-color: #b9a6ff; }
-  .langs button[aria-pressed="true"] { color: #fff; background: #7c5cff; border-color: #7c5cff; }
-  img.hero { width: 100%; height: auto; border-radius: 24px; display: block; box-shadow: 0 18px 60px #8a6bff33; }
-  img.icon {
-    width: 128px; height: 128px; border-radius: 28px; margin-top: -64px; position: relative;
-    box-shadow: 0 0 0 3px #0b0b14, 0 12px 40px #8a6bff66;
-  }
-  h1 { margin: 20px 0 8px; font-size: 1.9rem; letter-spacing: .02em; }
-  @media (max-width: 520px) {
-    img.hero { border-radius: 16px; }
-    img.icon { width: 92px; height: 92px; border-radius: 22px; margin-top: -30px; }
-    h1 { font-size: 1.55rem; }
-  }
-  p.tagline { margin: 0 auto 24px; max-width: 30rem; color: #c4bfe6; line-height: 1.5; }
-  a.play {
-    display: inline-block; padding: 14px 28px; border-radius: 999px;
-    background: #35b866; color: #fff; font-weight: 600; text-decoration: none;
-  }
-  a.play:hover, a.play:focus-visible { background: #46cf7a; }
-  .gallery { position: relative; margin-top: 36px; }
-  .shots {
-    display: flex; gap: 12px; padding: 4px 4px 12px;
-    overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-    scrollbar-width: thin; scrollbar-color: #4a3d7a transparent;
-  }
-  .shots button {
-    flex: 0 0 min(46%, 250px); padding: 0; line-height: 0; cursor: zoom-in;
-    border: 2px solid #343a5e; border-radius: 18px; overflow: hidden;
-    background: #0b0b14; scroll-snap-align: center;
-  }
-  .shots button:hover, .shots button:focus-visible { border-color: #b9a6ff; }
-  .shots img { display: block; width: 100%; height: auto; }
-  .gallery .step {
-    position: absolute; top: calc(50% - 28px); width: 40px; height: 40px; padding: 0;
-    border-radius: 50%; cursor: pointer; font-size: 1.2rem; line-height: 1;
-    color: #f2f3ff; background: #150f2ed9; border: 1px solid #ffffff33;
-  }
-  .gallery .step:hover { border-color: #b9a6ff; }
-  .gallery .step.prev { left: 10px; }
-  .gallery .step.next { right: 10px; }
-  @media (hover: none) { .gallery .step { display: none; } }
-  @media (prefers-reduced-motion: reduce) { .shots { scroll-behavior: auto; } }
-  dialog.zoom { padding: 0; border: 0; background: transparent; max-width: 96vw; max-height: 96vh; }
-  dialog.zoom::backdrop { background: #000000d9; }
-  dialog.zoom img { display: block; width: auto; height: auto; max-width: 96vw; max-height: 92vh; border-radius: 14px; cursor: zoom-out; }
-  .about { margin: 40px auto 0; max-width: 40rem; text-align: left; color: #dcd8f5; line-height: 1.6; }
-  .about p.intro { margin: 0 0 16px; }
-  ul.features { list-style: none; margin: 0; padding: 0; }
-  ul.features li { padding: 14px 0; border-top: 1px solid #ffffff14; }
-  ul.features strong { display: block; margin-bottom: 4px; font-size: .8rem; letter-spacing: .08em; color: #ffd65a; }
-  nav { margin-top: 36px; font-size: .95rem; }
-  nav a { color: #b9a6ff; text-decoration: none; margin: 0 10px; white-space: nowrap; }
-  nav a:hover, nav a:focus-visible { text-decoration: underline; }
-  footer { margin-top: 36px; font-size: .78rem; color: #7d789f; }
-  [data-lang] { display: none; }
-  html[lang="en"] [data-lang="en"], html[lang="es"] [data-lang="es"],
-  html[lang="fr"] [data-lang="fr"], html[lang="de"] [data-lang="de"] { display: revert; }
-</style>
+<link rel="stylesheet" href="../css/game.css">
 <script>
   var LANGS = ["en", "es", "fr", "de"];
   var TITLES = {
@@ -100,10 +22,7 @@
   function pickLang() {
     var q = new URLSearchParams(location.search).get("lang");
     if (LANGS.indexOf(q) >= 0) return q;
-    try {
-      var saved = localStorage.getItem("lang");
-      if (LANGS.indexOf(saved) >= 0) return saved;
-    } catch (e) {}
+    try { var saved = localStorage.getItem("lang"); if (LANGS.indexOf(saved) >= 0) return saved; } catch (e) {}
     var nav = (navigator.language || "").toLowerCase().slice(0, 2);
     return LANGS.indexOf(nav) >= 0 ? nav : "en";
   }
@@ -111,37 +30,41 @@
   document.title = TITLES[document.documentElement.lang];
 </script>
 </head>
-<body>
-<main>
-  <div class="langs">
-    <button type="button" data-set-lang="es" lang="es" title="Español">ES</button>
-    <button type="button" data-set-lang="en" lang="en" title="English">EN</button>
-    <button type="button" data-set-lang="fr" lang="fr" title="Français">FR</button>
-    <button type="button" data-set-lang="de" lang="de" title="Deutsch">DE</button>
+<body class="red">
+<div class="wrap">
+  <header class="top">
+    <a class="back" id="back" href="../">← L.M.F.P.</a>
+    <div class="langs">
+      <button type="button" data-set-lang="es" lang="es" title="Español">ES</button>
+      <button type="button" data-set-lang="en" lang="en" title="English">EN</button>
+      <button type="button" data-set-lang="fr" lang="fr" title="Français">FR</button>
+      <button type="button" data-set-lang="de" lang="de" title="Deutsch">DE</button>
+    </div>
+  </header>
+
+  <div class="cover"><img id="cover" src="hero_en.jpg" width="1024" height="500" alt="Bounce Abyss"></div>
+  <div class="head">
+    <img class="icon" src="icon.png" width="112" height="112" alt="">
+    <div>
+      <h1 data-lang="en">Bounce Abyss: Ball Breaker</h1>
+      <h1 data-lang="es">Abismo: Rompebloques Roguelite</h1>
+      <h1 data-lang="fr">Bounce Abyss&nbsp;: Casse-briques</h1>
+      <h1 data-lang="de">Bounce Abyss: Kugel-Roguelite</h1>
+      <p class="tagline" data-lang="en">Launch hundreds of balls, smash blocks and dive forever. Upgrade, fuse, descend.</p>
+      <p class="tagline" data-lang="es">Lanza cientos de bolas y rompe bloques sin fin. Mejora, fusiona y desciende.</p>
+      <p class="tagline" data-lang="fr">Lance des centaines de balles, casse des blocs. Améliore, fusionne, descends.</p>
+      <p class="tagline" data-lang="de">Hunderte Kugeln, endlose Blöcke. Verbessern, fusionieren, immer tiefer hinab.</p>
+    </div>
   </div>
 
-  <img class="hero" id="hero" src="hero_en.jpg" width="1024" height="500" alt="Bounce Abyss">
-  <img class="icon" src="icon.png" width="128" height="128" alt="">
+  <span class="status"><span data-lang="en">Out now</span><span data-lang="es">Ya disponible</span><span data-lang="fr">Disponible</span><span data-lang="de">Erhältlich</span></span>
+  <div class="actions">
+    <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.bounceabyss.game"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12-7.5z"/></svg><span data-lang="en">Get it on Google Play</span><span data-lang="es">Disponible en Google Play</span><span data-lang="fr">Disponible sur Google Play</span><span data-lang="de">Jetzt bei Google Play</span></a>
+  </div>
 
-  <h1 data-lang="en">Bounce Abyss: Ball Breaker</h1>
-  <h1 data-lang="es">Abismo: Rompebloques Roguelite</h1>
-  <h1 data-lang="fr">Bounce Abyss&nbsp;: Casse-briques</h1>
-  <h1 data-lang="de">Bounce Abyss: Kugel-Roguelite</h1>
-
-  <p class="tagline" data-lang="en">Launch hundreds of balls, smash blocks and dive forever. Upgrade, fuse, descend.</p>
-  <p class="tagline" data-lang="es">Lanza cientos de bolas y rompe bloques sin fin. Mejora, fusiona y desciende.</p>
-  <p class="tagline" data-lang="fr">Lance des centaines de balles, casse des blocs. Améliore, fusionne, descends.</p>
-  <p class="tagline" data-lang="de">Hunderte Kugeln, endlose Blöcke. Verbessern, fusionieren, immer tiefer hinab.</p>
-
-  <a class="play" id="play" href="https://play.google.com/store/apps/details?id=com.bounceabyss.game">
-    <span data-lang="en">Get it on Google Play</span>
-    <span data-lang="es">Disponible en Google Play</span>
-    <span data-lang="fr">Disponible sur Google Play</span>
-    <span data-lang="de">Jetzt bei Google Play</span>
-  </a>
-
+  <h2><span data-lang="en">Screenshots</span><span data-lang="es">Capturas</span><span data-lang="fr">Captures d'écran</span><span data-lang="de">Screenshots</span></h2>
   <div class="gallery">
-    <div class="shots" id="shots">
+    <div class="shots portrait" id="shots">
       <button type="button" aria-label="Screenshot 1"><img src="shots/en/01.webp" width="540" height="1170" alt="" loading="lazy"></button>
       <button type="button" aria-label="Screenshot 2"><img src="shots/en/02.webp" width="540" height="1170" alt="" loading="lazy"></button>
       <button type="button" aria-label="Screenshot 3"><img src="shots/en/03.webp" width="540" height="1170" alt="" loading="lazy"></button>
@@ -155,8 +78,9 @@
     <button type="button" class="step next" aria-hidden="true" tabindex="-1">&#8250;</button>
   </div>
 
-  <div class="about" data-lang="en">
+  <section data-lang="en">
     <p class="intro">Bounce Abyss is an incremental roguelite brick breaker: every run takes you deeper, every upgrade is permanent and there is always something new to unlock.</p>
+    <h2>What's inside</h2>
     <ul class="features">
       <li><strong>BREAK</strong>Drag to aim, release and watch hundreds of balls tear through the field. Pick a card every few floors, face guardians every 10 floors and a boss with its own rules at the end of each biome.</li>
       <li><strong>COLLECT</strong>35 balls across 7 elements and 14 fusions: fire that burns, ice that slows, lightning that jumps, poison that stacks. Level them up, earn stars and build your deck.</li>
@@ -164,9 +88,10 @@
       <li><strong>AT YOUR OWN PACE</strong>Runs of a few minutes, playable with one hand and offline. Daily and weekly missions and 80 achievements.</li>
       <li><strong>FAIR</strong>Free to play. No real-money purchases; ads are optional and give in-game rewards. Odds are always on display.</li>
     </ul>
-  </div>
-  <div class="about" data-lang="es">
+  </section>
+  <section data-lang="es">
     <p class="intro">Abismo es un rompebloques roguelite incremental: cada partida bajas más hondo, cada mejora es para siempre y siempre hay algo nuevo que desbloquear.</p>
+    <h2>Qué trae</h2>
     <ul class="features">
       <li><strong>ROMPE</strong>Arrastra para apuntar, suelta y mira cómo cientos de bolas atraviesan el campo. Elige una carta cada pocos pisos, enfréntate a guardianes cada 10 pisos y a un jefe con sus propias reglas al final de cada bioma.</li>
       <li><strong>COLECCIONA</strong>35 bolas de 7 elementos y 14 fusiones: fuego que quema, hielo que frena, rayos que saltan, veneno que se acumula. Súbelas de nivel, gana estrellas y arma tu mazo.</li>
@@ -174,9 +99,10 @@
       <li><strong>A TU RITMO</strong>Partidas de unos minutos, con una sola mano y sin conexión. Misiones diarias y semanales y 80 logros.</li>
       <li><strong>JUEGO LIMPIO</strong>Gratis. Sin compras con dinero real; los anuncios son opcionales y dan recompensas del juego. Las probabilidades están siempre a la vista.</li>
     </ul>
-  </div>
-  <div class="about" data-lang="fr">
+  </section>
+  <section data-lang="fr">
     <p class="intro">Bounce Abyss est un casse-briques roguelite incrémental&nbsp;: chaque partie t'emmène plus profond, chaque amélioration est définitive et il y a toujours quelque chose de nouveau à débloquer.</p>
+    <h2>Au programme</h2>
     <ul class="features">
       <li><strong>CASSE</strong>Fais glisser pour viser, relâche et regarde des centaines de balles traverser le terrain. Choisis une carte tous les quelques étages, affronte des gardiens tous les 10 étages et un boss aux règles bien à lui à la fin de chaque biome.</li>
       <li><strong>COLLECTIONNE</strong>35 balles de 7 éléments et 14 fusions&nbsp;: le feu qui brûle, la glace qui ralentit, la foudre qui saute, le poison qui s'accumule. Monte-les de niveau, gagne des étoiles et compose ton deck.</li>
@@ -184,9 +110,10 @@
       <li><strong>À TON RYTHME</strong>Des parties de quelques minutes, jouables d'une seule main et sans connexion. Missions quotidiennes et hebdomadaires et 80 succès.</li>
       <li><strong>ÉQUITABLE</strong>Gratuit. Aucun achat en argent réel&nbsp;; les publicités sont facultatives et donnent des récompenses en jeu. Les probabilités sont toujours affichées.</li>
     </ul>
-  </div>
-  <div class="about" data-lang="de">
+  </section>
+  <section data-lang="de">
     <p class="intro">Bounce Abyss ist ein inkrementeller Roguelite-Blockbrecher: Jede Runde führt dich tiefer, jede Verbesserung bleibt für immer und es gibt immer etwas Neues freizuschalten.</p>
+    <h2>Das steckt drin</h2>
     <ul class="features">
       <li><strong>ZERSTÖREN</strong>Ziehen zum Zielen, loslassen und zusehen, wie Hunderte Kugeln das Feld zerlegen. Wähle alle paar Ebenen eine Karte, stelle dich alle 10 Ebenen einem Wächter und am Ende jedes Bioms einem Boss mit eigenen Regeln.</li>
       <li><strong>SAMMELN</strong>35 Kugeln aus 7 Elementen und 14 Fusionen: Feuer, das brennt, Eis, das bremst, Blitze, die springen, Gift, das sich stapelt. Werte sie auf, verdiene Sterne und stelle dein Deck zusammen.</li>
@@ -194,56 +121,41 @@
       <li><strong>IN DEINEM TEMPO</strong>Runden von wenigen Minuten, mit einer Hand und ohne Internetverbindung spielbar. Tägliche und wöchentliche Missionen und 80 Erfolge.</li>
       <li><strong>FAIR</strong>Kostenlos. Keine Käufe mit echtem Geld; Werbung ist optional und bringt Belohnungen im Spiel. Die Chancen sind immer einsehbar.</li>
     </ul>
-  </div>
+  </section>
 
-  <nav>
-    <a id="privacy" href="privacy.html">
-      <span data-lang="en">Privacy policy</span>
-      <span data-lang="es">Política de privacidad</span>
-      <span data-lang="fr">Politique de confidentialité</span>
-      <span data-lang="de">Datenschutzerklärung</span>
-    </a>
-    <a href="mailto:orbitaloverload.game@gmail.com">
-      <span data-lang="en">Contact</span>
-      <span data-lang="es">Contacto</span>
-      <span data-lang="fr">Contact</span>
-      <span data-lang="de">Kontakt</span>
-    </a>
-    <a id="more" href="../">
-      <span data-lang="en">More games</span>
-      <span data-lang="es">Más juegos</span>
-      <span data-lang="fr">Plus de jeux</span>
-      <span data-lang="de">Mehr Spiele</span>
-    </a>
+  <nav class="links">
+    <a id="privacy" href="privacy.html"><span data-lang="en">Privacy policy</span><span data-lang="es">Política de privacidad</span><span data-lang="fr">Politique de confidentialité</span><span data-lang="de">Datenschutzerklärung</span></a>
+    <a href="mailto:orbitaloverload.game@gmail.com"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span><span data-lang="fr">Contact</span><span data-lang="de">Kontakt</span></a>
+    <a id="more" href="../"><span data-lang="en">More games</span><span data-lang="es">Más juegos</span><span data-lang="fr">Plus de jeux</span><span data-lang="de">Weitere Spiele</span></a>
   </nav>
-
   <footer>&copy; 2026 L.M.F.P.</footer>
-</main>
+</div>
 
 <dialog class="zoom" id="zoom"><img src="" alt=""></dialog>
 
 <script>
 (function () {
-  var SHOT = { en: "Screenshot", es: "Captura", fr: "Capture d'écran", de: "Screenshot" };
+  var PLAY = "https://play.google.com/store/apps/details?id=com.bounceabyss.game&hl=";
   var NAME = { en: "Bounce Abyss", es: "Abismo", fr: "Bounce Abyss", de: "Bounce Abyss" };
+  // El gráfico de portada lleva texto del juego: hay uno por idioma.
+  function pageLang(lang) {
+    var cover = document.getElementById("cover");
+    cover.src = "hero_" + lang + ".jpg";
+    cover.alt = NAME[lang];
+    document.getElementById("privacy").href = "privacy.html?lang=" + lang;
+  }
+
+  var SHOT = { en: "Screenshot", es: "Captura", fr: "Capture d'écran", de: "Screenshot" };
   var shots = document.getElementById("shots");
   var zoom = document.getElementById("zoom");
-  var hero = document.getElementById("hero");
-  var PLAY = "https://play.google.com/store/apps/details?id=com.bounceabyss.game&hl=";
   var langButtons = document.querySelectorAll("[data-set-lang]");
 
   function applyLang(lang) {
     document.documentElement.lang = lang;
     document.title = TITLES[lang];
-    langButtons.forEach(function (b) {
-      b.setAttribute("aria-pressed", b.dataset.setLang === lang);
-    });
-    // El gráfico y las capturas llevan texto del juego: hay un juego de imágenes por idioma.
-    // La ficha de la tienda se abre en el mismo idioma que la página.
     document.getElementById("play").href = PLAY + lang;
-    var heroUrl = "hero_" + lang + ".jpg";
-    if (hero.getAttribute("src") !== heroUrl) hero.src = heroUrl;
-    hero.alt = NAME[lang];
+    langButtons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === lang); });
+    // Las capturas llevan el texto del juego: hay un juego de imágenes por idioma.
     shots.querySelectorAll("button").forEach(function (b, i) {
       var url = "shots/" + lang + "/0" + (i + 1) + ".webp";
       var img = b.firstElementChild;
@@ -251,8 +163,9 @@
       if (img.getAttribute("src") !== url) img.src = url;
     });
     // El idioma elegido viaja a las otras páginas del sitio.
-    document.getElementById("privacy").href = "privacy.html?lang=" + lang;
+    document.getElementById("back").href = "../?lang=" + lang;
     document.getElementById("more").href = "../?lang=" + lang;
+    pageLang(lang);
   }
 
   langButtons.forEach(function (b) {
@@ -266,8 +179,8 @@
 
   document.querySelectorAll(".gallery .step").forEach(function (b) {
     b.addEventListener("click", function () {
-      var step = shots.firstElementChild.getBoundingClientRect().width + 12;
-      shots.scrollBy({ left: b.classList.contains("next") ? step : -step });
+      var step = shots.firstElementChild.getBoundingClientRect().width + 14;
+      shots.scrollBy({ left: b.classList.contains("next") ? step : -step, behavior: "smooth" });
     });
   });
 
@@ -280,6 +193,7 @@
   zoom.addEventListener("click", function () { zoom.close(); });
 
   applyLang(document.documentElement.lang);
+
 })();
 </script>
 </body>

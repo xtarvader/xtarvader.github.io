@@ -5,85 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Orbital Overload: Idle Defense</title>
 <meta name="description" content="Turrets, endless upgrades and epic bosses: defend your pixel-art planet!">
+<meta property="og:title" content="Orbital Overload: Idle Defense">
+<meta property="og:image" content="https://xtarvader.github.io/orbitaloverload/shots/en/01.webp">
+<meta name="theme-color" content="#F3ECDF">
 <link rel="icon" type="image/png" href="icon.png">
-<style>
-  :root { color-scheme: dark; }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; }
-  body {
-    min-height: 100vh; padding: 20px 16px 48px;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: #e8ecf8;
-    background:
-      radial-gradient(1px 1px at 12% 18%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 78% 32%, #cfe0ff 50%, transparent 51%),
-      radial-gradient(1px 1px at 34% 71%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 61% 86%, #ffe9c2 50%, transparent 51%),
-      radial-gradient(1px 1px at 90% 64%, #fff 50%, transparent 51%),
-      radial-gradient(1px 1px at 22% 44%, #cfe0ff 50%, transparent 51%),
-      radial-gradient(ellipse at 50% 120%, #1b2a5c 0%, #0a0e1f 60%, #05070f 100%);
-    background-attachment: fixed;
-  }
-  main { width: 100%; max-width: 860px; margin: 0 auto; text-align: center; }
-  .langs { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 20px; }
-  .langs button {
-    min-width: 44px; padding: 8px 12px; border-radius: 999px; cursor: pointer;
-    font: inherit; font-size: .8rem; font-weight: 600; letter-spacing: .04em;
-    color: #aab4d4; background: transparent; border: 1px solid #ffffff2e;
-  }
-  .langs button:hover, .langs button:focus-visible { color: #fff; border-color: #9fb6ff; }
-  .langs button[aria-pressed="true"] { color: #fff; background: #3d7bff; border-color: #3d7bff; }
-  img.icon {
-    width: 112px; height: 112px; border-radius: 24px;
-    image-rendering: pixelated;
-    box-shadow: 0 0 0 1px #ffffff22, 0 12px 40px #2f6bff55;
-  }
-  h1 { margin: 20px 0 8px; font-size: 1.75rem; letter-spacing: .02em; }
-  p.tagline { margin: 0 auto 24px; max-width: 30rem; color: #aab4d4; line-height: 1.5; }
-  a.play {
-    display: inline-block; padding: 14px 28px; border-radius: 999px;
-    background: #3d7bff; color: #fff; font-weight: 600; text-decoration: none;
-  }
-  a.play:hover, a.play:focus-visible { background: #5a90ff; }
-  .gallery { position: relative; margin-top: 36px; }
-  .shots {
-    display: flex; gap: 12px; padding: 4px 4px 12px;
-    overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-    scrollbar-width: thin; scrollbar-color: #3d4a7a transparent;
-  }
-  .shots button {
-    flex: 0 0 min(86%, 620px); padding: 0; line-height: 0; cursor: zoom-in;
-    border: 1px solid #ffffff1f; border-radius: 14px; overflow: hidden;
-    background: #05070f; scroll-snap-align: center;
-  }
-  .shots button:hover, .shots button:focus-visible { border-color: #9fb6ff; }
-  .shots img { display: block; width: 100%; height: auto; }
-  .gallery .step {
-    position: absolute; top: calc(50% - 28px); width: 40px; height: 40px; padding: 0;
-    border-radius: 50%; cursor: pointer; font-size: 1.2rem; line-height: 1;
-    color: #e8ecf8; background: #0a0e1fd9; border: 1px solid #ffffff33;
-  }
-  .gallery .step:hover { border-color: #9fb6ff; }
-  .gallery .step.prev { left: 10px; }
-  .gallery .step.next { right: 10px; }
-  @media (hover: none) { .gallery .step { display: none; } }
-  @media (prefers-reduced-motion: reduce) { .shots { scroll-behavior: auto; } }
-  dialog.zoom { padding: 0; border: 0; background: transparent; max-width: 96vw; max-height: 96vh; }
-  dialog.zoom::backdrop { background: #000000d9; }
-  dialog.zoom img { display: block; width: auto; height: auto; max-width: 96vw; max-height: 92vh; border-radius: 10px; cursor: zoom-out; }
-  .about { margin: 40px auto 0; max-width: 40rem; text-align: left; color: #c9d1ea; line-height: 1.6; }
-  .about p.intro { margin: 0 0 16px; }
-  ul.features { list-style: none; margin: 0; padding: 0; }
-  ul.features li { padding: 14px 0; border-top: 1px solid #ffffff14; }
-  ul.features strong { display: block; margin-bottom: 4px; font-size: .8rem; letter-spacing: .08em; color: #7fd4ff; }
-  nav { margin-top: 36px; font-size: .9rem; }
-  nav a { color: #9fb6ff; text-decoration: none; margin: 0 10px; white-space: nowrap; }
-  nav a:hover, nav a:focus-visible { text-decoration: underline; }
-  footer { margin-top: 36px; font-size: .75rem; color: #6b7699; }
-  [data-lang] { display: none; }
-  html[lang="en"] [data-lang="en"], html[lang="es"] [data-lang="es"],
-  html[lang="fr"] [data-lang="fr"], html[lang="de"] [data-lang="de"] { display: revert; }
-</style>
+<link rel="stylesheet" href="../css/game.css">
 <script>
   var LANGS = ["en", "es", "fr", "de"];
   var TITLES = {
@@ -96,10 +22,7 @@
   function pickLang() {
     var q = new URLSearchParams(location.search).get("lang");
     if (LANGS.indexOf(q) >= 0) return q;
-    try {
-      var saved = localStorage.getItem("lang");
-      if (LANGS.indexOf(saved) >= 0) return saved;
-    } catch (e) {}
+    try { var saved = localStorage.getItem("lang"); if (LANGS.indexOf(saved) >= 0) return saved; } catch (e) {}
     var nav = (navigator.language || "").toLowerCase().slice(0, 2);
     return LANGS.indexOf(nav) >= 0 ? nav : "en";
   }
@@ -107,32 +30,38 @@
   document.title = TITLES[document.documentElement.lang];
 </script>
 </head>
-<body>
-<main>
-  <div class="langs">
-    <button type="button" data-set-lang="es" lang="es" title="Español">ES</button>
-    <button type="button" data-set-lang="en" lang="en" title="English">EN</button>
-    <button type="button" data-set-lang="fr" lang="fr" title="Français">FR</button>
-    <button type="button" data-set-lang="de" lang="de" title="Deutsch">DE</button>
+<body class="teal">
+<div class="wrap">
+  <header class="top">
+    <a class="back" id="back" href="../">← L.M.F.P.</a>
+    <div class="langs">
+      <button type="button" data-set-lang="es" lang="es" title="Español">ES</button>
+      <button type="button" data-set-lang="en" lang="en" title="English">EN</button>
+      <button type="button" data-set-lang="fr" lang="fr" title="Français">FR</button>
+      <button type="button" data-set-lang="de" lang="de" title="Deutsch">DE</button>
+    </div>
+  </header>
+
+  <div class="cover"><img id="cover" src="shots/en/01.webp" width="2132" height="1200" alt=""></div>
+  <div class="head">
+    <img class="icon pixel" src="icon.png" width="112" height="112" alt="">
+    <div>
+      <h1>Orbital Overload</h1>
+      <p class="tagline" data-lang="en">Turrets, endless upgrades and epic bosses: defend your pixel-art planet!</p>
+      <p class="tagline" data-lang="es">Torretas, mejoras sin fin y jefes épicos: ¡defiende tu planeta en pixel art!</p>
+      <p class="tagline" data-lang="fr">Tourelles, améliorations sans fin, boss épiques : défendez votre planète !</p>
+      <p class="tagline" data-lang="de">Geschütze, endlose Upgrades und epische Bosse: Verteidige deinen Planeten!</p>
+    </div>
   </div>
 
-  <img class="icon" src="icon.png" width="112" height="112" alt="">
-  <h1>Orbital Overload</h1>
+  <span class="status"><span data-lang="en">Out now</span><span data-lang="es">Ya disponible</span><span data-lang="fr">Disponible</span><span data-lang="de">Erhältlich</span></span>
+  <div class="actions">
+    <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.orbitaloverload.game"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12-7.5z"/></svg><span data-lang="en">Get it on Google Play</span><span data-lang="es">Disponible en Google Play</span><span data-lang="fr">Disponible sur Google Play</span><span data-lang="de">Jetzt bei Google Play</span></a>
+  </div>
 
-  <p class="tagline" data-lang="en">Turrets, endless upgrades and epic bosses: defend your pixel-art planet!</p>
-  <p class="tagline" data-lang="es">Torretas, mejoras sin fin y jefes épicos: ¡defiende tu planeta en pixel art!</p>
-  <p class="tagline" data-lang="fr">Tourelles, améliorations sans fin, boss épiques : défendez votre planète !</p>
-  <p class="tagline" data-lang="de">Geschütze, endlose Upgrades und epische Bosse: Verteidige deinen Planeten!</p>
-
-  <a class="play" id="play" href="https://play.google.com/store/apps/details?id=com.orbitaloverload.game">
-    <span data-lang="en">Get it on Google Play</span>
-    <span data-lang="es">Disponible en Google Play</span>
-    <span data-lang="fr">Disponible sur Google Play</span>
-    <span data-lang="de">Jetzt bei Google Play</span>
-  </a>
-
+  <h2><span data-lang="en">Screenshots</span><span data-lang="es">Capturas</span><span data-lang="fr">Captures d'écran</span><span data-lang="de">Screenshots</span></h2>
   <div class="gallery">
-    <div class="shots" id="shots">
+    <div class="shots landscape" id="shots">
       <button type="button" aria-label="Screenshot 1"><img src="shots/en/01.webp" width="2132" height="1200" alt="" loading="lazy"></button>
       <button type="button" aria-label="Screenshot 2"><img src="shots/en/02.webp" width="2132" height="1200" alt="" loading="lazy"></button>
       <button type="button" aria-label="Screenshot 3"><img src="shots/en/03.webp" width="2132" height="1200" alt="" loading="lazy"></button>
@@ -146,8 +75,9 @@
     <button type="button" class="step next" aria-hidden="true" tabindex="-1">&#8250;</button>
   </div>
 
-  <section class="about" data-lang="en">
+  <section data-lang="en">
     <p class="intro">Your planet is all that stands between the galaxy and an endless tide of asteroids, alien ships and colossal bosses. Arm it with turrets, upgrade them every wave and find out how far you can go.</p>
+    <h2>What's inside</h2>
     <ul class="features">
       <li><strong>14 UNIQUE WEAPONS</strong>Pulse cannon, laser gatling, railgun, homing missiles, Tesla coil, continuous beam, plasma mortar, drones, gravity well, orbital cannon, nova bomb, reaper disc and plasma flamethrower. At level 30, every weapon evolves into one of two versions.</li>
       <li><strong>MIX AND EXPERIMENT</strong>10 ammo types (incendiary, cryo, shock, void…), 15 synergies between weapon pairs and permanent mastery for your favorites.</li>
@@ -158,8 +88,9 @@
       <li><strong>ADS ARE ALWAYS OPTIONAL</strong>You will never see an ad you didn't ask for: you decide whether to watch one to revive or to double your rewards.</li>
     </ul>
   </section>
-  <section class="about" data-lang="es">
+  <section data-lang="es">
     <p class="intro">Tu planeta es lo único que se interpone entre la galaxia y una marea interminable de asteroides, naves alienígenas y jefes colosales. Equípalo con torretas, mejóralas en cada oleada y descubre hasta dónde puedes llegar.</p>
+    <h2>Qué trae</h2>
     <ul class="features">
       <li><strong>14 ARMAS ÚNICAS</strong>Cañón de pulsos, gatling láser, railgun, misiles buscadores, bobina Tesla, rayo continuo, mortero de plasma, drones, pozo gravitatorio, cañón orbital, bomba nova, disco segador y lanzallamas de plasma. Al nivel 30, cada arma evoluciona en una de dos versiones.</li>
       <li><strong>COMBINA Y EXPERIMENTA</strong>10 municiones (incendiaria, criogénica, eléctrica, de vacío…), 15 sinergias entre parejas de armas y maestría permanente para tus favoritas.</li>
@@ -170,8 +101,9 @@
       <li><strong>ANUNCIOS SIEMPRE OPCIONALES</strong>Nunca verás un anuncio que no hayas pedido: tú decides si ves uno para revivir o para duplicar tus recompensas.</li>
     </ul>
   </section>
-  <section class="about" data-lang="fr">
+  <section data-lang="fr">
     <p class="intro">Votre planète est tout ce qui sépare la galaxie d'une vague sans fin d'astéroïdes, de vaisseaux extraterrestres et de boss colossaux. Équipez-la de tourelles, améliorez-les à chaque vague et découvrez jusqu'où vous pouvez aller.</p>
+    <h2>Au programme</h2>
     <ul class="features">
       <li><strong>14 ARMES UNIQUES</strong>Canon à impulsions, gatling laser, canon électrique, missiles à tête chercheuse, bobine Tesla, rayon continu, mortier à plasma, drones, puits gravitationnel, canon orbital, bombe nova, disque faucheur et lance-flammes à plasma. Au niveau 30, chaque arme évolue vers l'une de deux versions.</li>
       <li><strong>COMBINEZ ET EXPÉRIMENTEZ</strong>10 munitions (incendiaire, cryogénique, électrique, du néant…), 15 synergies entre paires d'armes et une maîtrise permanente pour vos favorites.</li>
@@ -182,8 +114,9 @@
       <li><strong>DES PUBLICITÉS TOUJOURS FACULTATIVES</strong>Vous ne verrez jamais une publicité que vous n'avez pas demandée : c'est vous qui décidez d'en regarder une pour ressusciter ou doubler vos récompenses.</li>
     </ul>
   </section>
-  <section class="about" data-lang="de">
+  <section data-lang="de">
     <p class="intro">Dein Planet ist alles, was zwischen der Galaxie und einer endlosen Flut aus Asteroiden, Alienschiffen und gewaltigen Bossen steht. Rüste ihn mit Geschützen aus, verbessere sie in jeder Welle und finde heraus, wie weit du kommst.</p>
+    <h2>Das steckt drin</h2>
     <ul class="features">
       <li><strong>14 EINZIGARTIGE WAFFEN</strong>Pulskanone, Laser-Gatling, Railgun, Lenkraketen, Tesla-Spule, Dauerstrahl, Plasmamörser, Drohnen, Gravitationsschacht, Orbitalkanone, Nova-Bombe, Schnitterscheibe und Plasma-Flammenwerfer. Auf Stufe 30 entwickelt sich jede Waffe zu einer von zwei Versionen.</li>
       <li><strong>KOMBINIERE UND EXPERIMENTIERE</strong>10 Munitionsarten (Brand, Kryo, Elektro, Leere …), 15 Synergien zwischen Waffenpaaren und dauerhafte Meisterschaft für deine Lieblingswaffen.</li>
@@ -195,35 +128,23 @@
     </ul>
   </section>
 
-  <nav>
-    <a href="https://sites.google.com/view/orbitaloverload">
-      <span data-lang="en">Privacy policy</span>
-      <span data-lang="es">Política de privacidad</span>
-      <span data-lang="fr">Politique de confidentialité</span>
-      <span data-lang="de">Datenschutzerklärung</span>
-    </a>
-    <a href="mailto:orbitaloverload.game@gmail.com">
-      <span data-lang="en">Contact</span>
-      <span data-lang="es">Contacto</span>
-      <span data-lang="fr">Contact</span>
-      <span data-lang="de">Kontakt</span>
-    </a>
-    <a href="../">
-      <span data-lang="en">More games</span>
-      <span data-lang="es">Más juegos</span>
-      <span data-lang="fr">Plus de jeux</span>
-      <span data-lang="de">Weitere Spiele</span>
-    </a>
+  <nav class="links">
+    <a id="privacy" href="https://sites.google.com/view/orbitaloverload"><span data-lang="en">Privacy policy</span><span data-lang="es">Política de privacidad</span><span data-lang="fr">Politique de confidentialité</span><span data-lang="de">Datenschutzerklärung</span></a>
+    <a href="mailto:orbitaloverload.game@gmail.com"><span data-lang="en">Contact</span><span data-lang="es">Contacto</span><span data-lang="fr">Contact</span><span data-lang="de">Kontakt</span></a>
+    <a id="more" href="../"><span data-lang="en">More games</span><span data-lang="es">Más juegos</span><span data-lang="fr">Plus de jeux</span><span data-lang="de">Weitere Spiele</span></a>
   </nav>
+  <footer>&copy; 2026 L.M.F.P.</footer>
+</div>
 
-  <footer>&copy; 2026 Orbital Overload</footer>
+<dialog class="zoom" id="zoom"><img src="" alt=""></dialog>
 
-  <dialog class="zoom" id="zoom"><img alt=""></dialog>
-</main>
 <script>
 (function () {
-  var SHOT = { en: "Screenshot", es: "Captura", fr: "Capture d'écran", de: "Screenshot" };
   var PLAY = "https://play.google.com/store/apps/details?id=com.orbitaloverload.game&hl=";
+  // La portada es la primera captura, que lleva texto del juego en cada idioma.
+  function pageLang(lang) { document.getElementById("cover").src = "shots/" + lang + "/01.webp"; }
+
+  var SHOT = { en: "Screenshot", es: "Captura", fr: "Capture d'écran", de: "Screenshot" };
   var shots = document.getElementById("shots");
   var zoom = document.getElementById("zoom");
   var langButtons = document.querySelectorAll("[data-set-lang]");
@@ -232,16 +153,18 @@
     document.documentElement.lang = lang;
     document.title = TITLES[lang];
     document.getElementById("play").href = PLAY + lang;
-    langButtons.forEach(function (b) {
-      b.setAttribute("aria-pressed", b.dataset.setLang === lang);
-    });
-    // Las capturas llevan el texto del juego, así que hay un juego de imágenes por idioma.
+    langButtons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === lang); });
+    // Las capturas llevan el texto del juego: hay un juego de imágenes por idioma.
     shots.querySelectorAll("button").forEach(function (b, i) {
       var url = "shots/" + lang + "/0" + (i + 1) + ".webp";
       var img = b.firstElementChild;
       b.setAttribute("aria-label", SHOT[lang] + " " + (i + 1));
       if (img.getAttribute("src") !== url) img.src = url;
     });
+    // El idioma elegido viaja a las otras páginas del sitio.
+    document.getElementById("back").href = "../?lang=" + lang;
+    document.getElementById("more").href = "../?lang=" + lang;
+    pageLang(lang);
   }
 
   langButtons.forEach(function (b) {
@@ -255,8 +178,8 @@
 
   document.querySelectorAll(".gallery .step").forEach(function (b) {
     b.addEventListener("click", function () {
-      var step = shots.firstElementChild.getBoundingClientRect().width + 12;
-      shots.scrollBy({ left: b.classList.contains("next") ? step : -step });
+      var step = shots.firstElementChild.getBoundingClientRect().width + 14;
+      shots.scrollBy({ left: b.classList.contains("next") ? step : -step, behavior: "smooth" });
     });
   });
 
@@ -269,6 +192,7 @@
   zoom.addEventListener("click", function () { zoom.close(); });
 
   applyLang(document.documentElement.lang);
+
 })();
 </script>
 </body>

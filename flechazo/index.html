@@ -9,52 +9,20 @@
 <meta property="og:image" content="https://xtarvader.github.io/flechazo/hero.webp">
 <meta name="theme-color" content="#F3ECDF">
 <link rel="icon" type="image/webp" href="icon.webp">
+<link rel="stylesheet" href="../css/game.css">
 <style>
-  @font-face { font-family: "Lilita One"; src: url("../fonts/lilita-one.ttf") format("truetype"); font-display: swap; }
-  @font-face { font-family: "Nunito"; src: url("../fonts/nunito.ttf") format("truetype"); font-weight: 200 1000; font-display: swap; }
-  :root {
-    --paper: #F3ECDF; --band: #E9DDC7; --card: #FFFAF1; --ink: #1D1B19; --ink-soft: #5E554B; --line: #D9CBB3;
-    --red: #E0472F; --red-edge: #B0331E; --blue: #3F5DF5; --blue-edge: #2C45C4; --mustard: #E9A92E; --teal: #127A73;
-    --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
-    --body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --paper: #1B1815; --band: #231F1B; --card: #2A251F; --ink: #F3ECDF; --ink-soft: #BDB1A2; --line: #3D352C; color-scheme: dark; }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--body); }
-  img { max-width: 100%; height: auto; display: block; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
-  @media (min-width: 720px) { .wrap { padding: 0 32px; } }
-  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 0; flex-wrap: wrap; }
-  .back { font-weight: 900; text-decoration: none; color: var(--ink); }
-  .back:hover, .back:focus-visible { text-decoration: underline; text-decoration-color: var(--mustard); text-decoration-thickness: 3px; }
-  .langs { display: flex; gap: 4px; }
-  .langs button { font: 800 .8rem var(--body); padding: 7px 10px; border-radius: 10px; cursor: pointer; color: var(--ink); background: transparent; border: 2px solid var(--line); }
-  .langs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .cover { border-radius: 24px; overflow: hidden; border: 2px solid var(--line); box-shadow: 0 8px 0 var(--line); background: #E4ECF6; }
-  .head { display: flex; gap: 18px; align-items: flex-end; margin: -46px 0 0 20px; position: relative; }
-  .head img { width: 112px; height: 112px; border-radius: 26px; border: 5px solid var(--paper); box-shadow: 0 6px 0 color-mix(in srgb, var(--ink) 18%, transparent); }
-  h1 { font: clamp(2.2rem, 6vw, 3.4rem)/1 var(--display); margin: 0 0 6px; }
-  .tag { margin: 0 0 6px; font-weight: 800; color: var(--ink-soft); }
-  .status { display: inline-block; margin: 22px 0 10px; font-weight: 900; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--red); background: color-mix(in srgb, var(--red) 12%, transparent); padding: 6px 12px; border-radius: 8px; }
-  .lead { font-size: 1.12rem; max-width: 42rem; color: var(--ink-soft); }
-  h2 { font: 2rem/1.1 var(--display); margin: 48px 0 18px; }
-  .steps { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); counter-reset: s; }
+  .steps { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
   .steps div { background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 18px 20px; }
   .steps b { display: inline-grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; color: #fff; font: 1.3rem var(--display); margin-bottom: 10px; }
   .steps div:nth-child(1) b { background: var(--blue); box-shadow: inset 0 -4px 0 var(--blue-edge); }
-  .steps div:nth-child(2) b { background: var(--mustard); box-shadow: inset 0 -4px 0 #B9801A; }
+  .steps div:nth-child(2) b { background: var(--mustard); box-shadow: inset 0 -4px 0 var(--mustard-edge); }
   .steps div:nth-child(3) b { background: var(--red); box-shadow: inset 0 -4px 0 var(--red-edge); }
   .steps h3 { margin: 0 0 4px; font-size: 1.1rem; font-weight: 900; }
   .steps p { margin: 0; color: var(--ink-soft); }
-  .shots { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 260px)); justify-content: start; }
-  .shots img { border-radius: 22px; border: 2px solid var(--line); box-shadow: 0 8px 0 var(--line); width: 100%; height: auto; }
-  .features { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
-  .features li { font-weight: 800; padding: 8px 14px; border-radius: 10px; background: var(--card); border: 2px solid var(--line); }
-  footer { margin-top: 56px; border-top: 2px solid var(--line); padding: 22px 0 40px; color: var(--ink-soft); font-size: .92rem; display: flex; gap: 18px; flex-wrap: wrap; }
-  footer a { color: var(--ink); font-weight: 800; }
+  .shot-grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 260px)); }
+  .shot-grid img { border-radius: 22px; border: 2px solid var(--line); box-shadow: 0 8px 0 var(--line); width: 100%; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; list-style: none; }
+  .pills li { font-weight: 800; padding: 8px 14px; border-radius: 10px; background: var(--card); border: 2px solid var(--line); }
 </style>
 <script>
   var LANGS = ["en", "es", "fr", "de"];
@@ -68,7 +36,7 @@
   document.documentElement.lang = pickLang();
 </script>
 </head>
-<body>
+<body class="blue">
 <div class="wrap">
   <header class="top">
     <a class="back" id="back" href="../">← L.M.F.P.</a>
@@ -82,7 +50,7 @@
 
   <div class="cover"><img src="hero.webp" width="1600" height="800" alt=""></div>
   <div class="head">
-    <img src="icon.webp" width="112" height="112" alt="">
+    <img class="icon" src="icon.webp" width="112" height="112" alt="">
     <div>
       <h1>Flechazo</h1>
       <p class="tag" data-i18n="tag">Arrow Jam Puzzle</p>
@@ -100,19 +68,20 @@
   </div>
 
   <h2 data-i18n="shots_title">Screenshots</h2>
-  <div class="shots">
+  <div class="shot-grid">
     <img id="shot1" src="shots/en/01.webp" width="540" height="960" alt="">
     <img id="shot2" src="shots/en/02.webp" width="540" height="960" alt="">
   </div>
 
   <h2 data-i18n="feat_title">What's inside</h2>
-  <ul class="features" id="features"></ul>
+  <ul class="pills" id="features"></ul>
 
-  <footer>
-    <span>&copy; 2026 L.M.F.P.</span>
+  <nav class="links">
     <a id="privacy" href="privacy.html" data-i18n="privacy">Privacy policy</a>
     <a href="mailto:orbitaloverload.game@gmail.com" data-i18n="contact">Contact</a>
-  </footer>
+    <a id="more" href="../" data-i18n="more">More games</a>
+  </nav>
+  <footer>&copy; 2026 L.M.F.P.</footer>
 </div>
 
 <script>
@@ -127,7 +96,7 @@
       s3_t: "No llenes la bandeja", s3_p: "Tienes siete huecos. Elige el orden con cabeza: si la bandeja se llena, se acabó el nivel.",
       shots_title: "Capturas", feat_title: "Qué trae",
       features: ["Cientos de niveles, todos con solución", "Pistas y deshacer", "Símbolos para daltónicos", "Sin conexión", "Sin cuentas", "Español, inglés, francés y alemán"],
-      privacy: "Política de privacidad", contact: "Contacto"
+      privacy: "Política de privacidad", contact: "Contacto", more: "Más juegos"
     },
     en: {
       doc: "Flechazo: Arrow Jam Puzzle", tag: "Arrow Jam Puzzle", status: "In development · closed test very soon",
@@ -138,7 +107,7 @@
       s3_t: "Don't fill the tray", s3_p: "You have seven slots. Choose the order wisely: if the tray fills up, the level is over.",
       shots_title: "Screenshots", feat_title: "What's inside",
       features: ["Hundreds of levels, all solvable", "Hints and undo", "Colorblind symbols", "Plays offline", "No accounts", "English, Spanish, French and German"],
-      privacy: "Privacy policy", contact: "Contact"
+      privacy: "Privacy policy", contact: "Contact", more: "More games"
     },
     fr: {
       doc: "Flechazo : puzzle de flèches", tag: "Puzzle de flèches", status: "En développement · test fermé très bientôt",
@@ -149,7 +118,7 @@
       s3_t: "Ne remplis pas le bac", s3_p: "Tu as sept cases. Choisis bien l'ordre : si le bac est plein, le niveau est perdu.",
       shots_title: "Captures d'écran", feat_title: "Au programme",
       features: ["Des centaines de niveaux, tous solubles", "Indices et annulation", "Symboles pour daltoniens", "Hors ligne", "Sans compte", "Français, anglais, espagnol et allemand"],
-      privacy: "Politique de confidentialité", contact: "Contact"
+      privacy: "Politique de confidentialité", contact: "Contact", more: "Plus de jeux"
     },
     de: {
       doc: "Flechazo: Pfeil-Puzzle", tag: "Pfeil-Puzzle", status: "In Entwicklung · geschlossener Test in Kürze",
@@ -160,7 +129,7 @@
       s3_t: "Lass die Ablage nicht volllaufen", s3_p: "Du hast sieben Plätze. Wähle die Reihenfolge mit Bedacht: Ist die Ablage voll, ist das Level verloren.",
       shots_title: "Screenshots", feat_title: "Das steckt drin",
       features: ["Hunderte Level, alle lösbar", "Tipps und Rückgängig", "Symbole für Farbenblinde", "Offline spielbar", "Kein Konto nötig", "Deutsch, Englisch, Französisch und Spanisch"],
-      privacy: "Datenschutzerklärung", contact: "Kontakt"
+      privacy: "Datenschutzerklärung", contact: "Kontakt", more: "Weitere Spiele"
     }
   };
   var buttons = document.querySelectorAll("[data-set-lang]");
@@ -175,6 +144,7 @@
     document.getElementById("shot1").src = "shots/" + lang + "/01.webp";
     document.getElementById("shot2").src = "shots/" + lang + "/02.webp";
     document.getElementById("back").href = "../?lang=" + lang;
+    document.getElementById("more").href = "../?lang=" + lang;
     document.getElementById("privacy").href = "privacy.html#" + lang;
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.setLang === lang); });
   }
