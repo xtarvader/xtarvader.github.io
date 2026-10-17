@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Flechazo: Arrow Jam Puzzle</title>
-<meta name="description" content="Flechazo: free the arrows in the right order and match them in threes by colour before the tray fills up. Coming soon to Google Play.">
+<meta name="description" content="Flechazo: free the arrows in the right order and match them in threes by colour before the tray fills up. 1000 levels, Time Attack mode and 294 achievements. Free on Google Play.">
 <meta property="og:title" content="Flechazo: Arrow Jam Puzzle">
 <meta property="og:image" content="https://xtarvader.github.io/flechazo/hero.webp">
 <meta name="theme-color" content="#F3ECDF">
@@ -57,8 +57,9 @@
     </div>
   </div>
 
-  <span class="status" data-i18n="status">In development · closed test soon</span>
+  <span class="status" data-i18n="status">Out now · version 1.0</span>
   <p class="lead" data-i18n="lead"></p>
+  <p><a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.flechazo.game"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12-7.5z"/></svg><span data-i18n="play">Get it on Google Play</span></a></p>
 
   <h2 data-i18n="how_title">How to play</h2>
   <div class="steps">
@@ -71,6 +72,8 @@
   <div class="shot-grid">
     <img id="shot1" src="shots/en/01.webp" width="540" height="960" alt="">
     <img id="shot2" src="shots/en/02.webp" width="540" height="960" alt="">
+    <img id="shot3" src="shots/en/03.webp" width="540" height="960" alt="" loading="lazy">
+    <img id="shot4" src="shots/en/04.webp" width="540" height="960" alt="" loading="lazy">
   </div>
 
   <h2 data-i18n="feat_title">What's inside</h2>
@@ -88,47 +91,47 @@
 (function () {
   var T = {
     es: {
-      doc: "Flechazo: Puzzle de Flechas", tag: "Puzzle de flechas", status: "En desarrollo · prueba cerrada muy pronto",
+      doc: "Flechazo: Puzzle de Flechas", tag: "Puzzle de flechas", status: "Ya disponible · versión 1.0", play: "Disponible en Google Play",
       lead: "Saca las flechas del tablero en el orden correcto y júntalas de tres en tres por color antes de que se llene la bandeja. Un toque, una flecha: se entiende en segundos, pero pensar antes de tocar marca la diferencia.",
       how_title: "Cómo se juega",
       s1_t: "Toca una flecha", s1_p: "Si su camino hasta el borde está libre, sale disparada. Si choca con otra, rebota y pierdes una vida.",
       s2_t: "Junta tres iguales", s2_p: "Cada flecha que sale ocupa un hueco de la bandeja. Tres del mismo color desaparecen y dejan sitio.",
       s3_t: "No llenes la bandeja", s3_p: "Tienes siete huecos. Elige el orden con cabeza: si la bandeja se llena, se acabó el nivel.",
       shots_title: "Capturas", feat_title: "Qué trae",
-      features: ["Cientos de niveles, todos con solución", "Pistas y deshacer", "Símbolos para daltónicos", "Sin conexión", "Sin cuentas", "Español, inglés, francés y alemán"],
+      features: ["1000 niveles, todos con solución", "Modo Contrarreloj", "294 logros con insignias", "Puzzle del día", "Cofres de estrellas", "9 temas y 5 estilos de ficha", "Hielo, candados, flechas largas y giratorias", "Pistas y deshacer", "Símbolos para daltónicos", "Sin conexión", "Sin cuentas", "Español, inglés, francés y alemán"],
       privacy: "Política de privacidad", contact: "Contacto", more: "Más juegos"
     },
     en: {
-      doc: "Flechazo: Arrow Jam Puzzle", tag: "Arrow Jam Puzzle", status: "In development · closed test very soon",
+      doc: "Flechazo: Arrow Jam Puzzle", tag: "Arrow Jam Puzzle", status: "Out now · version 1.0", play: "Get it on Google Play",
       lead: "Free the arrows from the board in the right order and match them in threes by colour before the tray fills up. One tap, one arrow: you get it in seconds, but thinking before you tap makes all the difference.",
       how_title: "How to play",
       s1_t: "Tap an arrow", s1_p: "If its path to the edge is clear, it shoots out. If it hits another arrow, it bounces back and you lose a life.",
       s2_t: "Match three", s2_p: "Every arrow that leaves takes a slot in the tray. Three of the same colour vanish and free up space.",
       s3_t: "Don't fill the tray", s3_p: "You have seven slots. Choose the order wisely: if the tray fills up, the level is over.",
       shots_title: "Screenshots", feat_title: "What's inside",
-      features: ["Hundreds of levels, all solvable", "Hints and undo", "Colorblind symbols", "Plays offline", "No accounts", "English, Spanish, French and German"],
+      features: ["1000 levels, all solvable", "Time Attack mode", "294 achievements with badges", "Daily puzzle", "Star chests", "9 themes and 5 tile styles", "Ice, locks, long and spinning arrows", "Hints and undo", "Colorblind symbols", "Plays offline", "No accounts", "English, Spanish, French and German"],
       privacy: "Privacy policy", contact: "Contact", more: "More games"
     },
     fr: {
-      doc: "Flechazo : puzzle de flèches", tag: "Puzzle de flèches", status: "En développement · test fermé très bientôt",
+      doc: "Flechazo : puzzle de flèches", tag: "Puzzle de flèches", status: "Disponible · version 1.0", play: "Disponible sur Google Play",
       lead: "Fais sortir les flèches du plateau dans le bon ordre et réunis-les par trois de la même couleur avant que le bac ne déborde. Une touche, une flèche : on comprend en quelques secondes, mais réfléchir avant de toucher fait toute la différence.",
       how_title: "Comment jouer",
       s1_t: "Touche une flèche", s1_p: "Si son chemin jusqu'au bord est libre, elle file. Si elle percute une autre flèche, elle rebondit et tu perds une vie.",
       s2_t: "Réunis-en trois", s2_p: "Chaque flèche qui sort prend une case du bac. Trois de la même couleur disparaissent et libèrent de la place.",
       s3_t: "Ne remplis pas le bac", s3_p: "Tu as sept cases. Choisis bien l'ordre : si le bac est plein, le niveau est perdu.",
       shots_title: "Captures d'écran", feat_title: "Au programme",
-      features: ["Des centaines de niveaux, tous solubles", "Indices et annulation", "Symboles pour daltoniens", "Hors ligne", "Sans compte", "Français, anglais, espagnol et allemand"],
+      features: ["1000 niveaux, tous solubles", "Mode Contre-la-montre", "294 succès avec badges", "Puzzle du jour", "Coffres d'étoiles", "9 thèmes et 5 styles de pièces", "Glace, cadenas, flèches longues et tournantes", "Indices et annulation", "Symboles pour daltoniens", "Hors ligne", "Sans compte", "Français, anglais, espagnol et allemand"],
       privacy: "Politique de confidentialité", contact: "Contact", more: "Plus de jeux"
     },
     de: {
-      doc: "Flechazo: Pfeil-Puzzle", tag: "Pfeil-Puzzle", status: "In Entwicklung · geschlossener Test in Kürze",
+      doc: "Flechazo: Pfeil-Puzzle", tag: "Pfeil-Puzzle", status: "Erhältlich · Version 1.0", play: "Jetzt bei Google Play",
       lead: "Befreie die Pfeile in der richtigen Reihenfolge vom Spielfeld und sammle sie zu dritt nach Farbe, bevor die Ablage voll ist. Ein Tipp, ein Pfeil: In Sekunden verstanden, aber wer vorher nachdenkt, gewinnt.",
       how_title: "So wird gespielt",
       s1_t: "Tippe auf einen Pfeil", s1_p: "Ist sein Weg zum Rand frei, fliegt er hinaus. Stößt er an einen anderen Pfeil, prallt er zurück und du verlierst ein Leben.",
       s2_t: "Sammle drei gleiche", s2_p: "Jeder Pfeil, der hinausfliegt, belegt einen Platz in der Ablage. Drei gleicher Farbe verschwinden und machen Platz.",
       s3_t: "Lass die Ablage nicht volllaufen", s3_p: "Du hast sieben Plätze. Wähle die Reihenfolge mit Bedacht: Ist die Ablage voll, ist das Level verloren.",
       shots_title: "Screenshots", feat_title: "Das steckt drin",
-      features: ["Hunderte Level, alle lösbar", "Tipps und Rückgängig", "Symbole für Farbenblinde", "Offline spielbar", "Kein Konto nötig", "Deutsch, Englisch, Französisch und Spanisch"],
+      features: ["1000 Level, alle lösbar", "Zeitrennen-Modus", "294 Erfolge mit Abzeichen", "Tagesrätsel", "Sternentruhen", "9 Themen und 5 Steinstile", "Eis, Schlösser, lange und drehende Pfeile", "Tipps und Rückgängig", "Symbole für Farbenblinde", "Offline spielbar", "Kein Konto nötig", "Deutsch, Englisch, Französisch und Spanisch"],
       privacy: "Datenschutzerklärung", contact: "Kontakt", more: "Weitere Spiele"
     }
   };
@@ -141,8 +144,10 @@
     var list = document.getElementById("features");
     list.textContent = "";
     t.features.forEach(function (f) { var li = document.createElement("li"); li.textContent = f; list.appendChild(li); });
-    document.getElementById("shot1").src = "shots/" + lang + "/01.webp";
-    document.getElementById("shot2").src = "shots/" + lang + "/02.webp";
+    ["shot1", "shot2", "shot3", "shot4"].forEach(function (id, i) {
+      document.getElementById(id).src = "shots/" + lang + "/0" + (i + 1) + ".webp";
+    });
+    document.getElementById("play").href = "https://play.google.com/store/apps/details?id=com.flechazo.game&hl=" + lang;
     document.getElementById("back").href = "../?lang=" + lang;
     document.getElementById("more").href = "../?lang=" + lang;
     document.getElementById("privacy").href = "privacy.html?lang=" + lang;
