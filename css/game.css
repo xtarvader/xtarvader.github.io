@@ -1,6 +1,6 @@
 /* Estilo común de las páginas de juego: el mismo de la portada (papel crema, tinta,
-   bermellón, verde azulado, mostaza y azul). Cada página fija su color con
-   body.teal / body.red / body.blue. */
+   bermellón, verde azulado, mostaza, azul y ciruela). Cada página fija su color con
+   body.teal / body.red / body.blue / body.plum. */
 @font-face { font-family: "Lilita One"; src: url("../fonts/lilita-one.ttf") format("truetype"); font-display: swap; }
 @font-face { font-family: "Nunito"; src: url("../fonts/nunito.ttf") format("truetype"); font-weight: 200 1000; font-display: swap; }
 
@@ -8,6 +8,7 @@
   --paper: #F3ECDF; --band: #E9DDC7; --card: #FFFAF1; --ink: #1D1B19; --ink-soft: #5E554B; --line: #D9CBB3;
   --red: #E0472F; --red-edge: #B0331E; --teal: #127A73; --teal-edge: #0B5652;
   --mustard: #E9A92E; --mustard-edge: #B9801A; --blue: #3F5DF5; --blue-edge: #2C45C4;
+  --plum: #7A55D3; --plum-edge: #5A3BA6;
   --c: var(--red); --e: var(--red-edge);
   --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
   --body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -19,6 +20,7 @@
 body.teal { --c: var(--teal); --e: var(--teal-edge); }
 body.red { --c: var(--red); --e: var(--red-edge); }
 body.blue { --c: var(--blue); --e: var(--blue-edge); }
+body.plum { --c: var(--plum); --e: var(--plum-edge); }
 
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--body); }

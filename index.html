@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>L.M.F.P. games</title>
-<meta name="description" content="Small Android games with long-lasting fun: Orbital Overload, Bounce Abyss and Flechazo. No accounts, offline play, four languages.">
+<meta name="description" content="Small Android games with long-lasting fun: Orbital Overload, Bounce Abyss, Flechazo and, coming soon, Pomplings. No accounts, offline play, four languages.">
 <meta property="og:title" content="L.M.F.P. games">
-<meta property="og:description" content="Small Android games with long-lasting fun: Orbital Overload, Bounce Abyss and Flechazo.">
+<meta property="og:description" content="Small Android games with long-lasting fun: Orbital Overload, Bounce Abyss, Flechazo and Pomplings.">
 <meta property="og:image" content="https://xtarvader.github.io/flechazo/hero.webp">
 <meta name="theme-color" content="#F3ECDF">
 <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
@@ -20,6 +20,7 @@
     --paper: #F3ECDF; --band: #E9DDC7; --card: #FFFAF1; --ink: #1D1B19; --ink-soft: #5E554B;
     --line: #D9CBB3; --red: #E0472F; --red-edge: #B0331E; --teal: #127A73; --teal-edge: #0B5652;
     --mustard: #E9A92E; --mustard-edge: #B9801A; --blue: #3F5DF5; --blue-edge: #2C45C4;
+    --plum: #7A55D3; --plum-edge: #5A3BA6;
     --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
     --body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     color-scheme: light;
@@ -95,6 +96,7 @@
     background: var(--card); border: 2px solid var(--line); box-shadow: 0 8px 0 var(--line); overflow: hidden; }
   .game.teal { --c: var(--teal); --e: var(--teal-edge); }
   .game.blue { --c: var(--blue); --e: var(--blue-edge); }
+  .game.plum { --c: var(--plum); --e: var(--plum-edge); }
   .cover { aspect-ratio: 16 / 9; overflow: hidden; background: var(--band); }
   .cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
   .game:hover .cover img { transform: scale(1.04); }
@@ -208,7 +210,7 @@
 
     <section id="games">
       <h2 data-i18n="games_title">Our games</h2>
-      <p class="intro" data-i18n="games_intro">Three very different games built on the same idea: play for five minutes or an hour and always want to come back.</p>
+      <p class="intro" data-i18n="games_intro">Four very different games built on the same idea: play for five minutes or an hour and always want to come back.</p>
       <div class="games">
         <article class="game teal">
           <span class="badge" data-i18n="badge_live">Out now</span>
@@ -255,6 +257,21 @@
             </div>
           </div>
         </article>
+
+        <article class="game plum">
+          <span class="badge dev" data-i18n="badge_dev">In development</span>
+          <a class="cover" id="link-pomplings" href="pomplings/"><img src="pomplings/hero.webp" width="1024" height="500" alt=""></a>
+          <div class="gbody">
+            <img class="gicon" src="pomplings/icon.webp" width="84" height="84" alt="">
+            <h3>Pomplings</h3>
+            <p data-i18n="pomplings_pitch">Match pieces, hatch eggs and collect 64 fluffy Pomplings that help you on the board.</p>
+            <div class="chips" data-i18n-chips="pomplings_chips"></div>
+            <p class="note" data-i18n="pomplings_note">Closed test on Google Play very soon.</p>
+            <div class="gactions">
+              <a class="btn small" id="more-pomplings" href="pomplings/" data-i18n="btn_see">See the game</a>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   </div>
@@ -279,6 +296,7 @@
       <h2 data-i18n="log_title">Dev log</h2>
       <p class="intro" data-i18n="log_intro">What we've been up to lately.</p>
       <ol class="log">
+        <li><time datetime="2026-10-19"></time><p data-i18n="log_p"></p></li>
         <li><time datetime="2026-10-17"></time><p data-i18n="log0"></p></li>
         <li><time datetime="2026-10-16"></time><p data-i18n="log1"></p></li>
         <li><time datetime="2026-10-13"></time><p data-i18n="log2"></p></li>
@@ -296,6 +314,7 @@
         <li><a href="https://sites.google.com/view/orbitaloverload"><span>Orbital Overload</span><span data-i18n="privacy">Privacy policy</span></a></li>
         <li><a id="privacy-abyss" href="abismo/privacy.html"><span data-i18n="abyss_name">Bounce Abyss</span><span data-i18n="privacy">Privacy policy</span></a></li>
         <li><a href="flechazo/privacy.html"><span>Flechazo</span><span data-i18n="privacy">Privacy policy</span></a></li>
+        <li><a href="pomplings/privacy.html"><span>Pomplings</span><span data-i18n="privacy">Privacy policy</span></a></li>
         <li><a href="app-ads.txt"><span>app-ads.txt</span><span>AdMob</span></a></li>
       </ul>
     </section>
@@ -318,7 +337,7 @@
       cta_games: "Ver los juegos", cta_contact: "Escríbenos",
       stat_live: "juegos en Google Play", stat_next: "niveles en Flechazo", stat_langs: "idiomas en cada juego", stat_accounts: "cuentas que crear",
       games_title: "Nuestros juegos",
-      games_intro: "Tres juegos muy distintos con la misma idea: que puedas jugar cinco minutos o una hora y siempre te apetezca volver.",
+      games_intro: "Cuatro juegos muy distintos con la misma idea: que puedas jugar cinco minutos o una hora y siempre te apetezca volver.",
       badge_live: "Ya disponible", badge_dev: "En desarrollo", btn_see: "Ver el juego",
       orbital_pitch: "Torretas, mejoras sin fin y jefes épicos: ¡defiende tu planeta en pixel art!",
       orbital_chips: ["Defensa idle", "Pixel art", "Sin conexión"],
@@ -328,6 +347,9 @@
       flechazo_pitch: "Saca las flechas en el orden correcto y júntalas de tres en tres por color antes de que se llene la bandeja.",
       flechazo_chips: ["Puzzle", "1000 niveles", "Contrarreloj"],
       flechazo_note: "Versión 1.0: modo contrarreloj, 294 logros y 1000 niveles.",
+      pomplings_pitch: "Combina piezas, abre huevos y colecciona 64 Pomplings esponjosos que te ayudan en el tablero.",
+      pomplings_chips: ["Combinar tres", "Coleccionables", "160 niveles"],
+      pomplings_note: "Prueba cerrada en Google Play muy pronto.",
       how_title: "Cómo hacemos los juegos",
       how_intro: "Cuatro promesas que cumple cada juego, del primer prototipo a la última actualización.",
       how1_t: "Anuncios que no estorban",
@@ -339,6 +361,7 @@
       how4_t: "Para todo el mundo",
       how4_p: "Español, inglés, francés y alemán desde el primer día, y opciones como los símbolos para daltónicos activadas por defecto.",
       log_title: "Diario de desarrollo", log_intro: "En qué andamos últimamente.",
+      log_p: "Presentamos Pomplings, nuestro puzle de combinar tres con criaturas que coleccionar: 160 niveles, 64 Pomplings y cuatro idiomas. La prueba cerrada en Google Play empieza muy pronto.",
       log0: "Flechazo 1.0 llega a Google Play: 1000 niveles, modo contrarreloj, 294 logros, cofres de estrellas y nuevas mecánicas de hielo y candados.",
       log1: "Flechazo ya tiene anuncios con consentimiento RGPD, pausa con ajustes y cuatro idiomas. Lo siguiente: la prueba cerrada en Google Play.",
       log2: "Abismo ya está disponible en Google Play.",
@@ -356,7 +379,7 @@
       cta_games: "See the games", cta_contact: "Get in touch",
       stat_live: "games on Google Play", stat_next: "levels in Flechazo", stat_langs: "languages in every game", stat_accounts: "accounts to create",
       games_title: "Our games",
-      games_intro: "Three very different games built on the same idea: play for five minutes or an hour and always want to come back.",
+      games_intro: "Four very different games built on the same idea: play for five minutes or an hour and always want to come back.",
       badge_live: "Out now", badge_dev: "In development", btn_see: "See the game",
       orbital_pitch: "Turrets, endless upgrades and epic bosses: defend your pixel-art planet!",
       orbital_chips: ["Idle defense", "Pixel art", "Offline"],
@@ -366,6 +389,9 @@
       flechazo_pitch: "Free the arrows in the right order and match them in threes by colour before the tray fills up.",
       flechazo_chips: ["Puzzle", "1000 levels", "Time Attack"],
       flechazo_note: "Version 1.0: Time Attack mode, 294 achievements and 1000 levels.",
+      pomplings_pitch: "Match pieces, hatch eggs and collect 64 fluffy Pomplings that help you on the board.",
+      pomplings_chips: ["Match-3", "Collectibles", "160 levels"],
+      pomplings_note: "Closed test on Google Play very soon.",
       how_title: "How we make our games",
       how_intro: "Four promises every game keeps, from the first prototype to the last update.",
       how1_t: "Ads that stay out of the way",
@@ -377,6 +403,7 @@
       how4_t: "For everyone",
       how4_p: "Spanish, English, French and German from day one, plus options like colorblind symbols switched on by default.",
       log_title: "Dev log", log_intro: "What we've been up to lately.",
+      log_p: "Meet Pomplings, our match-3 puzzle with creatures to collect: 160 levels, 64 Pomplings and four languages. The closed test on Google Play starts very soon.",
       log0: "Flechazo 1.0 lands on Google Play: 1000 levels, Time Attack mode, 294 achievements, star chests and new ice and lock mechanics.",
       log1: "Flechazo now has ads with GDPR consent, a pause menu with settings and four languages. Next up: the closed test on Google Play.",
       log2: "Bounce Abyss is now available on Google Play.",
@@ -394,7 +421,7 @@
       cta_games: "Voir les jeux", cta_contact: "Nous écrire",
       stat_live: "jeux sur Google Play", stat_next: "niveaux dans Flechazo", stat_langs: "langues dans chaque jeu", stat_accounts: "compte à créer",
       games_title: "Nos jeux",
-      games_intro: "Trois jeux très différents avec la même idée : jouer cinq minutes ou une heure et toujours avoir envie d'y revenir.",
+      games_intro: "Quatre jeux très différents avec la même idée : jouer cinq minutes ou une heure et toujours avoir envie d'y revenir.",
       badge_live: "Disponible", badge_dev: "En développement", btn_see: "Voir le jeu",
       orbital_pitch: "Tourelles, améliorations sans fin, boss épiques : défendez votre planète !",
       orbital_chips: ["Défense idle", "Pixel art", "Hors ligne"],
@@ -404,6 +431,9 @@
       flechazo_pitch: "Libère les flèches dans le bon ordre et réunis-les par trois de la même couleur avant que le bac ne déborde.",
       flechazo_chips: ["Puzzle", "1000 niveaux", "Contre-la-montre"],
       flechazo_note: "Version 1.0 : mode contre-la-montre, 294 succès et 1000 niveaux.",
+      pomplings_pitch: "Associe les pièces, fais éclore des œufs et collectionne 64 Pomplings tout doux qui t'aident sur le plateau.",
+      pomplings_chips: ["Trois en ligne", "Collection", "160 niveaux"],
+      pomplings_note: "Test fermé sur Google Play très bientôt.",
       how_title: "Comment nous faisons nos jeux",
       how_intro: "Quatre promesses que chaque jeu tient, du premier prototype à la dernière mise à jour.",
       how1_t: "Des pubs qui ne gênent pas",
@@ -415,6 +445,7 @@
       how4_t: "Pour tout le monde",
       how4_p: "Espagnol, anglais, français et allemand dès le premier jour, et des options comme les symboles pour daltoniens activées par défaut.",
       log_title: "Journal de développement", log_intro: "Ce qui nous occupe ces derniers temps.",
+      log_p: "Voici Pomplings, notre puzzle de trois en ligne avec des créatures à collectionner : 160 niveaux, 64 Pomplings et quatre langues. Le test fermé sur Google Play commence très bientôt.",
       log0: "Flechazo 1.0 arrive sur Google Play : 1000 niveaux, mode contre-la-montre, 294 succès, coffres d'étoiles et nouvelles mécaniques de glace et de cadenas.",
       log1: "Flechazo a maintenant ses publicités avec consentement RGPD, un menu pause avec réglages et quatre langues. Prochaine étape : le test fermé sur Google Play.",
       log2: "Bounce Abyss est disponible sur Google Play.",
@@ -432,7 +463,7 @@
       cta_games: "Zu den Spielen", cta_contact: "Schreib uns",
       stat_live: "Spiele bei Google Play", stat_next: "Level in Flechazo", stat_langs: "Sprachen in jedem Spiel", stat_accounts: "Konten anzulegen",
       games_title: "Unsere Spiele",
-      games_intro: "Drei sehr unterschiedliche Spiele mit derselben Idee: fünf Minuten oder eine Stunde spielen und immer wieder zurückkommen wollen.",
+      games_intro: "Vier sehr unterschiedliche Spiele mit derselben Idee: fünf Minuten oder eine Stunde spielen und immer wieder zurückkommen wollen.",
       badge_live: "Erhältlich", badge_dev: "In Entwicklung", btn_see: "Zum Spiel",
       orbital_pitch: "Geschütze, endlose Upgrades und epische Bosse: Verteidige deinen Planeten!",
       orbital_chips: ["Idle-Abwehr", "Pixel-Art", "Offline"],
@@ -442,6 +473,9 @@
       flechazo_pitch: "Befreie die Pfeile in der richtigen Reihenfolge und sammle sie zu dritt nach Farbe, bevor die Ablage voll ist.",
       flechazo_chips: ["Puzzle", "1000 Level", "Zeitrennen"],
       flechazo_note: "Version 1.0: Zeitrennen-Modus, 294 Erfolge und 1000 Level.",
+      pomplings_pitch: "Kombiniere Teile, brüte Eier aus und sammle 64 flauschige Pomplings, die dir auf dem Spielfeld helfen.",
+      pomplings_chips: ["Drei gewinnt", "Sammeln", "160 Level"],
+      pomplings_note: "Geschlossener Test bei Google Play in Kürze.",
       how_title: "Wie wir unsere Spiele machen",
       how_intro: "Vier Versprechen, die jedes Spiel hält, vom ersten Prototyp bis zum letzten Update.",
       how1_t: "Werbung, die nicht stört",
@@ -453,6 +487,7 @@
       how4_t: "Für alle",
       how4_p: "Spanisch, Englisch, Französisch und Deutsch vom ersten Tag an, dazu Optionen wie Symbole für Farbenblinde, standardmäßig aktiv.",
       log_title: "Entwicklungstagebuch", log_intro: "Woran wir zuletzt gearbeitet haben.",
+      log_p: "Das ist Pomplings, unser Drei-gewinnt-Puzzle mit Wesen zum Sammeln: 160 Level, 64 Pomplings und vier Sprachen. Der geschlossene Test bei Google Play startet in Kürze.",
       log0: "Flechazo 1.0 ist bei Google Play: 1000 Level, Zeitrennen-Modus, 294 Erfolge, Sternentruhen und neue Eis- und Schloss-Mechaniken.",
       log1: "Flechazo hat jetzt Werbung mit DSGVO-Einwilligung, ein Pausenmenü mit Einstellungen und vier Sprachen. Als Nächstes: der geschlossene Test bei Google Play.",
       log2: "Bounce Abyss ist jetzt bei Google Play erhältlich.",
@@ -483,7 +518,7 @@
     // Las portadas llevan texto del juego: hay una por idioma. Y el idioma viaja a cada página.
     document.getElementById("cover-orbital").src = "orbitaloverload/shots/" + lang + "/01.webp";
     document.getElementById("cover-abyss").src = "abismo/hero_" + lang + ".jpg";
-    [["orbital", "orbitaloverload/"], ["abyss", "abismo/"], ["flechazo", "flechazo/"]].forEach(function (g) {
+    [["orbital", "orbitaloverload/"], ["abyss", "abismo/"], ["flechazo", "flechazo/"], ["pomplings", "pomplings/"]].forEach(function (g) {
       var href = g[1] + "?lang=" + lang;
       document.getElementById("link-" + g[0]).href = href;
       document.getElementById("more-" + g[0]).href = href;
